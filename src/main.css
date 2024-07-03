@@ -111,12 +111,12 @@ main {
     'cinco cinco'
     'seis seis'
     'siete siete'
-    'ocho ocho'
-    
-  
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(10 1fr);
+    'ocho ocho';
+    grid-template-columns: 1fr 1fr;
+  	grid-template-rows: repeat(10 1fr);
 }
+
+
 .hackify {
  grid-area: uno;
 
