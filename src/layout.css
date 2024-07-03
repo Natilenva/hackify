@@ -63,6 +63,8 @@ h1 {
 }
 
 .logo {
+  grid-area: header;
+  align-items: center;
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -102,17 +104,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* #actionsSection {
+#actionsSection {
   position: absolute;
   left: -9999px;
-} */
+}
 main {
   margin: 1rem;
 }
 
-.hackify {
-  grid-area: header;
-}
 .search {
   display: flex;
   flex-direction: column;
@@ -132,7 +131,7 @@ main {
   grid-area: playlists;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+
   margin: 1rem;
   justify-content: space-between;
 }
@@ -149,12 +148,21 @@ main {
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
+/* .profile {
+  position: absolute;
+  left: -9999px;
+} */
+.audio-player {
+  position: absolute;
+  left: -9999px;
+}
+
 /*---------------------------------------------------menu -------------------------------------------*/
 #menuSection {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  gap: 10px;
-  /* display: none; */
+  gap: 10px; */
+  display: none;
 }
 
 /*---------------------------------------------------------------------------------------------------*/
@@ -174,15 +182,15 @@ main {
 @media (min-width: 600px) {
   body {
     grid-template-areas:
-      'header search'
-      'barSide main'
-      'player player';
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 4fr 1fr;
-    min-width: 320px;
-    min-height: 100vh;
+      'header search profile logOut'
+      'barSide main main main'
+      'player player player player';
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    /* min-width: 320px;
+    min-height: 100vh; */
   }
-  .hackify {
+  .logo {
     grid-area: header;
   }
   .search {
@@ -202,10 +210,70 @@ main {
   }
   .playlists {
     grid-area: playlists;
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 1rem;
-    justify-content: space-between;
+    justify-content: space-between; */
+  }
+  #menuSection {
+    grid-area: barSide;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile {
+    grid-area: profile;
+    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .search-profile {
+    display: flex;
+    flex-direction: rows;
+  }
+  #logoutButton {
+    grid-area: logOut;
+    background-color: #191414;
+  }
+  .footer {
+    position: absolute;
+    left: -9999px;
+  }
+  .audio-player {
+    grid-area: player;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+  }
+  audio::-webkit-media-controls-panel {
+    background-color: #333;
+    border-radius: 10px;
+  }
+
+  audio::-webkit-media-controls-play-button,
+  audio::-webkit-media-controls-volume-slider,
+  audio::-webkit-media-controls-mute-button,
+  audio::-webkit-media-controls-current-time-display,
+  audio::-webkit-media-controls-time-remaining-display {
+    color: white;
+  }
+
+  /* Personalización de los controles en Firefox */
+  audio::-moz-media-controls {
+    background-color: #333;
+    border-radius: 10px;
+    color: white;
+  }
+  #profileButton {
+    background-color: #191414;
   }
 }
