@@ -26,8 +26,15 @@ type TokenResponse = {
   refresh_token: string;
 }
 
+type Image = {
+  url: string;
+  height: number;
+  width: number;
+}
+
 type Playlist = {
   name: string;
+  images: image[];
 }
 
 type PlaylistRequest = {
@@ -71,11 +78,7 @@ type Followers = {
   total: number;
 }
 
-type Image = {
-  url: string;
-  height: number;
-  width: number;
-}
+
 
 type Artist = {
   external_urls: ExternalUrls;
@@ -149,3 +152,4 @@ type track = {
     is_local: boolean;
   };
 
+  type Genres = string[];
