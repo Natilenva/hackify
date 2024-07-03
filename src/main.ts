@@ -1,6 +1,6 @@
 import './main.css';
 import { init as authenticatorInit, login, logout } from './auth';
-import { getMyPlaylists, initPlayer, playTrack, togglePlay, createPlaylist, addTrackToPlaylist, getPlaylistDetails } from './api';
+import { getMyPlaylists, initPlayer, playTrack, togglePlay, createPlaylist,  getPlaylistDetails } from './api';
 
 const publicSection = document.getElementById("publicSection")!;
 const privateSection = document.getElementById("privateSection")!;
@@ -92,6 +92,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
   if (!playlistElement) {
     throw new Error("Element not found");
   }
+
   playlistElement.innerHTML = playlists.items.map((playlist) => {
     const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'; // Reemplaza 'default-image-url' con una URL de imagen por defecto si la playlist no tiene imagen.
     return `
@@ -101,6 +102,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
       </li>`;
   }).join('');
 }
+
 
 
 function initActionsSection(): void {
