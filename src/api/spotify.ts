@@ -174,7 +174,9 @@ export async function getPreviousSong(token: string ): Promise<PlaylistRequest> 
 
   const result = await fetch(`${api}/v1/me/player/previous/v1/me/player/next`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
-
+  });
+  return await result.json();
+  }
 export async function createPlaylist(token: string, userId: string, name: string, description: string, isPublic: boolean): Promise<Playlist> {
   const result = await fetch(`${api}/v1/users/${userId}/playlists`, {
     method: "POST",
