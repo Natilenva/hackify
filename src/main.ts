@@ -97,7 +97,8 @@ function renderPlaylists(playlists: PlaylistRequest) {
     const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'; // Reemplaza 'default-image-url' con una URL de imagen por defecto si la playlist no tiene imagen.
     return `
       <li class="playlist-item">
-        <img src="${imageUrl}" alt="${playlist.name}" class="playlist-image">
+       <a href=><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></a>
+
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
   }).join('');
