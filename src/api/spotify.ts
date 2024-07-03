@@ -68,7 +68,7 @@ export async function getMyPlaylists(token: string): Promise<PlaylistRequest> {
   return await result.json();
 }
 
-export async function getPlaylistDetails(token: string, playlistId: string): Promise<Playlist> {
+export async function getSinglePlaylist(token: string, playlistId: string): Promise<Playlist> {
   const result = await fetch(`${api}/v1/playlists/${playlistId}`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` }
