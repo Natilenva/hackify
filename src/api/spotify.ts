@@ -74,7 +74,7 @@ export async function getMyPlaylist(token: string, playlistId: string): Promise<
 }
 
 
-//-----------------------------------------------------------------------------------------Categories
+//-----------------------------------------------------------------------------------------Categories----------
 export async function getAllCategories(token: string): Promise<PlaylistRequest> {
 
   const result = await fetch(`${api}/v1/browse/categories`, {
