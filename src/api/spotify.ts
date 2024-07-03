@@ -2,6 +2,7 @@ import { generateCodeChallenge, generateCodeVerifier } from "../utils";
 
 const apiAccount = 'https://accounts.spotify.com'
 const api = 'https://api.spotify.com'
+const params = new URLSearchParams({ limit: "50" });
 
 export async function redirectToProvider(): Promise<void> {
   const verifier = generateCodeVerifier(128);
@@ -63,3 +64,65 @@ export async function getMyPlaylists(token: string): Promise<PlaylistRequest> {
 }
 
 // TODO agregar nuevas funciones para obtener playlists, canciones, etc
+
+export async function getMyPlaylist(token: string, playlistId: string): Promise<PlaylistRequest> {
+  const result = await fetch(`${api}/v1/me/playlists/${playlistId}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getMyFavouritesSongs(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/me/tracks?${params.toString()}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getAllCategories(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/browse/categories`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getSigleCategorie(token: string, categoriesId: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/browse/categories/${categoriesId}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getArtist(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/artists`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getSingleArtist(token: string, artistId: string ): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/artists/${artistId}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getGenres(token: string ): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/recommendations/available-genre-seeds`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
