@@ -1,8 +1,11 @@
 import { generateCodeChallenge, generateCodeVerifier } from "../utils";
 
+
 const apiAccount = 'https://accounts.spotify.com'
 const api = 'https://api.spotify.com'
 const param = new URLSearchParams({ limit: "50" });
+
+
 
 export async function redirectToProvider(): Promise<void> {
   const verifier = generateCodeVerifier(128);
@@ -14,7 +17,7 @@ export async function redirectToProvider(): Promise<void> {
   params.append("client_id", import.meta.env.VITE_CLIENTID);
   params.append("response_type", "code");
   params.append("redirect_uri", import.meta.env.VITE_URI_CALLBACK);
-  params.append("scope", "user-read-private user-read-email");
+  params.append("scope", "user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
@@ -23,7 +26,7 @@ export async function redirectToProvider(): Promise<void> {
 
 export async function getTokens(code: string): Promise<TokenResponse> {
   const verifier = localStorage.getItem("verifier");
-  if(!verifier){
+  if (!verifier) {
     throw new Error("Code verifier not found");
   }
   const params = new URLSearchParams();
@@ -49,7 +52,8 @@ export async function getTokens(code: string): Promise<TokenResponse> {
 
 export async function getProfile(token: string): Promise<UserProfile> {
   const result = await fetch(`${api}/v1/me`, {
-    method: "GET", headers: { Authorization: `Bearer ${token}` }
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` }
   });
 
   return await result.json();
@@ -57,17 +61,17 @@ export async function getProfile(token: string): Promise<UserProfile> {
 
 export async function getMyPlaylists(token: string): Promise<PlaylistRequest> {
   const result = await fetch(`${api}/v1/me/playlists`, {
-    method: "GET", headers: { Authorization: `Bearer ${token}` }
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` }
   });
 
   return await result.json();
 }
 
-// TODO agregar nuevas funciones para obtener playlists, canciones, etc
-
-export async function getMyPlaylist(token: string, playlistId: string): Promise<PlaylistRequest> {
-  const result = await fetch(`${api}/v1/me/playlists/${playlistId}`, {
-    method: "GET", headers: { Authorization: `Bearer ${token}` }
+export async function getPlaylistDetails(token: string, playlistId: string): Promise<Playlist> {
+  const result = await fetch(`${api}/v1/playlists/${playlistId}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` }
   });
 
   return await result.json();
@@ -83,6 +87,7 @@ export async function getAllCategories(token: string): Promise<CategoriesRequest
 
   return await result.json();
 }
+
 
 export async function getSigleCategorie(token: string, categoriesId: string): Promise<Category> {
 
@@ -169,20 +174,26 @@ export async function getPreviousSong(token: string ): Promise<PlaylistRequest> 
 
   const result = await fetch(`${api}/v1/me/player/previous/v1/me/player/next`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
+
+export async function createPlaylist(token: string, userId: string, name: string, description: string, isPublic: boolean): Promise<Playlist> {
+  const result = await fetch(`${api}/v1/users/${userId}/playlists`, {
+    method: "POST",
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name,
+      description,
+      public: isPublic
+    })
+
   });
+
+  if (!result.ok) {
+    const error = await result.json();
+    throw new Error(error.error.message);
+  }
 
   return await result.json();
 }
-
-export async function getRepeatSong(token: string): Promise<PlaylistRequest> {
-
-  const result = await fetch(`${api}/v1/me/player/repeat`, {
-    method: "GET", headers: { Authorization: `Bearer ${token}` }
-  });
-
-  return await result.json();
-}
-
-
-
-
