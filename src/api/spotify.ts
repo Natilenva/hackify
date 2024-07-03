@@ -73,15 +73,8 @@ export async function getMyPlaylist(token: string, playlistId: string): Promise<
   return await result.json();
 }
 
-export async function getMyFavouritesSongs(token: string): Promise<PlaylistRequest> {
 
-  const result = await fetch(`${api}/v1/me/tracks?${params.toString()}`, {
-    method: "GET", headers: { Authorization: `Bearer ${token}` }
-  });
-
-  return await result.json();
-}
-
+//-----------------------------------------------------------------------------------------Categories
 export async function getAllCategories(token: string): Promise<PlaylistRequest> {
 
   const result = await fetch(`${api}/v1/browse/categories`, {
@@ -99,7 +92,7 @@ export async function getSigleCategorie(token: string, categoriesId: string): Pr
 
   return await result.json();
 }
-
+//------------------------------------------------------------------------------------------------Artist--------------------------------
 export async function getArtist(token: string): Promise<PlaylistRequest> {
 
   const result = await fetch(`${api}/v1/artists`, {
@@ -117,7 +110,7 @@ export async function getSingleArtist(token: string, artistId: string ): Promise
 
   return await result.json();
 }
-
+//----------------------------------------------------------------------------------------Genres--------------------------------
 export async function getGenres(token: string ): Promise<PlaylistRequest> {
 
   const result = await fetch(`${api}/v1/recommendations/available-genre-seeds`, {
@@ -126,3 +119,52 @@ export async function getGenres(token: string ): Promise<PlaylistRequest> {
 
   return await result.json();
 }
+//--------------------------------------------------------------------------------------------Songs--------------------------------
+export async function getSong(token: string, songId: string ): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/recommendations/tracks/${songId}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getMyFavouritesSongs(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/me/tracks?${params.toString()}`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getNextSong(token: string ): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/me/player/next/v1/me/player/next`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getPreviousSong(token: string ): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/me/player/previous/v1/me/player/next`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+export async function getRepeatSong(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/me/player/repeat`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return await result.json();
+}
+
+
+
+
