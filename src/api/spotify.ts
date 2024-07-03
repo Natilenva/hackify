@@ -73,22 +73,15 @@ export async function getPlaylistDetails(token: string, playlistId: string): Pro
   return await result.json();
 }
 
-export async function addTrackToPlaylist(token: string, playlistId: string, trackUri: string): Promise<void> {
-  const result = await fetch(`${api}/v1/playlists/${playlistId}/tracks`, {
-    method: "POST",
-    headers: { 
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      uris: [trackUri]
-    })
+
+//-----------------------------------------------------------------------------------------Categories
+export async function getAllCategories(token: string): Promise<PlaylistRequest> {
+
+  const result = await fetch(`${api}/v1/browse/categories`, {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
   });
 
-  if (!result.ok) {
-    const error = await result.json();
-    throw new Error(error.error.message);
-  }
+  return await result.json();
 }
 
 export async function createPlaylist(token: string, userId: string, name: string, description: string, isPublic: boolean): Promise<Playlist> {
