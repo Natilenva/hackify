@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>My Spotify Profile</title>
+  <link rel="stylesheet" href="main.css">
   <script src="src/main.ts" type="module"></script>
   <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </head>
@@ -18,7 +19,7 @@
     <button id="playlistsButton">Mis playlists</button>
     <button id="logoutButton">Logout</button>
   </section>
-  <section id="profileSection" >
+  <section id="profileSection">
     <h1>Display your Spotify profile data</h1>
     <h2>Logged in as <span id="displayName"></span></h2>
     <ul>
@@ -36,8 +37,6 @@
     <p>Acciones comunes:</p>
     <button id="changeButton">Cambiar track</button>
     <button id="playButton">Play/Pause</button>
-    <a><button id="logoutButton">Logout</button></a>
-
   </section>
   <section id="spotifyEmbedSection">
     <div id="embed-iframe"></div>
