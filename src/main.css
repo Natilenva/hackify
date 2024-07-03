@@ -97,23 +97,44 @@ button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
 }
 
+#privateSection{
+	width: 100vw;
+}
 /*---------------------------------------------------menu -------------------------------------------*/
 #menuSection{
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
+	background-color: #1a1a1a;
+	
+}
+
+#menu{
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	height: 100vh;
+}
+
+#profileCard{
+	display: flex;
+	text-align: right;
+	justify-content: end;
 	gap: 10px;
 	
 }
 
 /*---------------------------------------------------------------------------------------------------*/
 
+
+
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
+		color: #cdd9e4;
 		background-color: #ffffff;
 	}
 	a:hover {
-		color: #747bff;
+		color: #c4c5e2;
 	}
 	button {
 		background-color: #f9f9f9;
