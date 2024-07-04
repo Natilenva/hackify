@@ -23,6 +23,7 @@ async function init() {
 
 function initPublicSection(profile?: UserProfile): void{
   document.getElementById("loginButton")!.addEventListener("click", login);
+  
   renderPublicSection(!!profile);
 }
 
