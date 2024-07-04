@@ -1,6 +1,6 @@
 import './main.css';
 import { init as authenticatorInit, login, logout } from './auth';
-import { getMyPlaylists, initPlayer, playTrack, togglePlay,getSinglePlaylist  } from './api';
+import { getMyPlaylists, initPlayer, playTrack, togglePlay,getSinglePlaylist,getGenres  } from './api';
 
 const publicSection = document.getElementById("publicSection")!;
 const privateSection = document.getElementById("privateSection")!;
@@ -131,7 +131,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
         renderPlaylistSingle(playlist)
 
         
-        console.log('playlist');
+       
       })
     }
 })
@@ -174,6 +174,11 @@ async function renderPlaylistSingle(lista : Playlist) {
   });
 
   playlistsSingle.appendChild(trackList);
+
+  }
+
+  async function renderGenres (genres : Genres){
+    let allGenres = await getGenres( localStorage.getItem("accessToken")!)
 
   }
   
