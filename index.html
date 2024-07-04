@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="main.css" />
   <script src="src/main.ts" type="module"></script>
   <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+  <link rel="icon" href="/public/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="src/layout.css" />
   <link />
 </head>
@@ -34,8 +35,9 @@
       <div class="buscador">
         <section class="search">
           <label style="margin-right: 10px;" for="input-search">Search</label>
+          
           <input class="input-search" id="input-search" type="text" placeholder="Artist, song or podcast" />
-        </section>
+          <button id="searchButton">🔎</button>
       </div>
     </div>
     <button id="logoutButton">Logout</button>
@@ -70,6 +72,7 @@
     <section id="playlistsSection">
       <ul id="playlists"></ul>
       <ul id="playlistSingle"></ul>
+      <ul id="searchResults"></ul>
     </section>
   </section>
 

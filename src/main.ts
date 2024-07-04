@@ -7,8 +7,11 @@ import {
   playTrack,
   togglePlay,
   getSinglePlaylist,
+  search,
  
 } from './api';
+
+
 
 const publicSection = document.getElementById('publicSection')!;
 const privateSection = document.getElementById('privateSection')!;
@@ -17,6 +20,10 @@ const playlistsSection = document.getElementById('playlistsSection')!;
 const actionsSection = document.getElementById('actionsSection')!;
 const playlistview = document.getElementById('playlists')!;
 const playlistsSingle = document.getElementById('playlistSingle')!;
+const playerSpoty = document.getElementById('spotifyEmbedSection')!;
+const searchResults = document.getElementById('searchResults')!;
+const searchButton = document.getElementById('searchButton')!;
+
 
 async function init() {
   let profile: UserProfile | undefined;
@@ -57,6 +64,10 @@ function renderPrivateSection(isLogged: boolean) {
   privateSection.style.display = isLogged ? 'flex' : 'none';
 }
 
+function renderPlayerSpoty(render : boolean){
+  playerSpoty.style.display = render ? 'none' : 'flex';
+}
+
 function initMenuSection(): void {
   document.getElementById('profileButton')!.addEventListener('click', () => {
     renderProfileSection(profileSection.style.display !== 'none');
@@ -65,8 +76,27 @@ function initMenuSection(): void {
     playlistsSingle.style.display = 'none';
     renderPlaylistsSection(true);
     renderPlaylist(true);
+    renderPlayerSpoty(true);
+    renderSearchResults(false);
   });
   document.getElementById('logoutButton')!.addEventListener('click', logout);
+
+  searchButton.addEventListener('click', async () => {
+    const query = document.getElementById('input-search').value;
+    console.log(query);
+    if (query) {
+      try {
+        const tracks = await search(query); 
+        renderSearchResults(tracks);
+        renderPlaylist(false)
+      } catch (error) {
+        console.error('Error durante la búsqueda:', error);
+      }
+    } else if(query == null){
+      console.error('Error durante la búsqueda:');
+    }
+  });
+  
 }
 
 function initProfileSection(profile?: UserProfile | undefined) {
@@ -100,6 +130,35 @@ function initPlaylistSection(profile?: UserProfile): void {
         renderPlaylists(playlists);
       }
     );
+  }
+}
+
+function renderSearchResults(tracks : Track) {
+  if (searchResults) {
+    searchResults.innerHTML = '';
+    tracks.forEach(item => {
+      const trackItem = document.createElement('li');
+      
+      trackItem.innerHTML = `
+        <img src="${item.album.images[2].url}" alt="${item.name}" />
+        <button class="songButton" data-track-uri="${item.uri}" track-id= "${item.id}">
+          <p><strong>${item.name}</strong> - ${item.artists[0].name}</p>
+        </button>
+      `;
+      searchResults.appendChild(trackItem);
+    });
+
+    const songButton = document.querySelectorAll('.songButton');
+    songButton.forEach(buttons => {
+      buttons.addEventListener('click', () => {
+        const trackId = buttons.getAttribute('track-id');
+        console.log(trackId)
+        playTrack(`spotify:track:${trackId}`);
+        togglePlay();
+        renderActionsSection(true);
+        renderPlayerSpoty(false);
+      });
+    });
   }
 }
 
@@ -189,6 +248,7 @@ async function renderPlaylistSingle(lista: Playlist) {
         playTrack(`spotify:track:${trackId}`)
         togglePlay()
         renderActionsSection(true);
+        renderPlayerSpoty(false);
       })
     })
 
