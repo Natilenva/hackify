@@ -123,7 +123,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
     htmlLista =
       htmlLista +
       `<li id="playlist-${playlist.id}" class="playlist-item">
-       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}  class="playlist-image"></button>
+       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}  class="playlistImage" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
