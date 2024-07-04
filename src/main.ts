@@ -54,7 +54,7 @@ function initPrivateSection(profile?: UserProfile): void {
 }
 
 function renderPrivateSection(isLogged: boolean) {
-  privateSection.style.display = isLogged ? 'block' : 'none';
+  privateSection.style.display = isLogged ? 'flex' : 'none';
 }
 
 function initMenuSection(): void {
