@@ -13,6 +13,7 @@ body {
 	color: var(--spotify-white);
 }
 
+
 .buscador {
 	width: 100%; /* Usa todo el ancho disponible */
 	max-width: 600px; /* Máximo ancho para el buscador */
