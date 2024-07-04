@@ -123,7 +123,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
     htmlLista =
       htmlLista +
       `<li id="playlist-${playlist.id}" class="playlist-item">
-       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}  class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
@@ -158,7 +158,7 @@ async function renderPlaylistSingle(lista: Playlist) {
   header.innerHTML = `
     <h2>${playlist.name}</h2>
     
-    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" height="${playlist.images[0].height}">
+    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" class="playlistImage" height="${playlist.images[0].height}">
     <span class="playlist-name">${playlist.name}</span>
     
   `;
