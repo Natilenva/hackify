@@ -201,7 +201,7 @@ async function renderGenres(genres: Genres) {
 
 function initActionsSection(): void {
   document.getElementById('changeButton')!.addEventListener('click', () => {
-    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); // solo a modo de ejemplo
+    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); 
   });
   document.getElementById('playButton')!.addEventListener('click', () => {
     togglePlay();
