@@ -13,6 +13,13 @@ body {
 	color: var(--spotify-white);
 }
 
+.buscador {
+	width: 100%; /* Usa todo el ancho disponible */
+	max-width: 600px; /* Máximo ancho para el buscador */
+	display: flex; /* Flexbox para alinear elementos */
+	align-items: center; /* Centra verticalmente */
+  }
+
 button {
 	background-color: black;
 	color: black;
@@ -92,18 +99,18 @@ a:hover {
 
 #privateSection {
 	display: flex;
-	height: 100vh; /* Ocupa toda la altura de la pantalla */
+	height: 100vh; 
 }
 
 #menuSection {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 10px; /* Espacio entre los botones */
+	gap: 10px; 
 	padding: 20px;
-	width: 200px; /* Ancho fijo para el dashboard */
+	width: 200px; 
 	
-	color: #ecf0f1; /* Color de texto claro */
+	color: #ecf0f1; 
 }
 
 #menuSection button {
@@ -112,12 +119,12 @@ a:hover {
 	font-size: 16px; 
 	cursor: pointer; 
 	border: none; 
-	color: #ecf0f1; /* Color de texto claro */
-	text-align: left; /* Alinea el texto a la izquierda */
+	color: #ecf0f1;
+	text-align: left; 
 }
 
 #menuSection button:hover {
-	background-color: #3b3b3b; /* Fondo de los botones al pasar el mouse */
+	background-color: #3b3b3b; 
 }
 
 #playlistsSection {
@@ -125,13 +132,12 @@ a:hover {
 	flex: 1;
 	padding: 20px;
 	background-color: black;
-	overflow-y: auto; /* Añade scroll si el contenido excede la altura */
+	overflow-y: auto; 
 }
 
 #playlistsSection p {
 	font-size: 24px;
 	font-weight: bold;
-	color: var(--spotify-black); /* Asegura que el texto sea visible */
 }
 
 #playlists ul, #playlistSingle ul {
@@ -152,4 +158,9 @@ a:hover {
 	box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 	margin-right: 20px;
 	margin-bottom: 20px;
+}
+
+.playlistImage {
+	width: 300px;
+	height: 300px;
 }
