@@ -38,7 +38,7 @@ function initPublicSection(profile?: UserProfile): void {
 }
 
 function renderPlaylist(render: boolean): void {
-  playlistview.style.display = render ? 'block' : 'none';
+  playlistview.style.display = render ? 'flex' : 'none';
 }
 
 function renderPublicSection(render: boolean): void {
@@ -77,7 +77,7 @@ function initProfileSection(profile?: UserProfile | undefined) {
 }
 
 function renderProfileSection(render: boolean) {
-  profileSection.style.display = render ? 'none' : 'block';
+  profileSection.style.display = render ? 'none' : 'flex';
 }
 
 function renderProfileData(profile: UserProfile) {
@@ -104,7 +104,7 @@ function initPlaylistSection(profile?: UserProfile): void {
 }
 
 function renderPlaylistsSection(render: boolean) {
-  playlistsSection.style.display = render ? 'block' : 'none';
+  playlistsSection.style.display = render ? 'flex' : 'none';
 }
 
 function renderPlaylists(playlists: PlaylistRequest) {
@@ -118,12 +118,12 @@ function renderPlaylists(playlists: PlaylistRequest) {
     const imageUrl =
       playlist.images.length > 0
         ? playlist.images[0].url
-        : 'publichackifyLogo.png';
+        : 'public\hackifyLogo.png';
 
     htmlLista =
       htmlLista +
       `<li id="playlist-${playlist.id}" class="playlist-item">
-       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}  class="playlistImage" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
@@ -158,8 +158,8 @@ async function renderPlaylistSingle(lista: Playlist) {
   header.innerHTML = `
     <h2>${playlist.name}</h2>
     
-    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" height="${playlist.images[0].height}">
-    <span class="playlist-name">${playlist.name}</span>
+    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" class="playlistImage" height="${playlist.images[0].height}">
+    
     
   `;
   playlistsSingle.appendChild(header);
@@ -171,15 +171,29 @@ async function renderPlaylistSingle(lista: Playlist) {
 
     trackItem.innerHTML = `
       <img src="${track.track.album.images[2].url}" alt="${track.name}"/>
-      <button>
+      <button class = "songButton" track-id= "${track.track.id}">
       <p><strong>${track.track.name}</strong> - ${track.track.artists[0].name}  ${track.track.album.name}</p>
       </button>
     `;
     trackList.appendChild(trackItem);
+
+    
   });
 
   playlistsSingle.appendChild(trackList);
+
+  const songButton =  document.querySelectorAll('.songButton');
+    songButton.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const trackId = button.getAttribute('track-id');
+        playTrack(`spotify:track:${trackId}`)
+        togglePlay()
+        renderActionsSection(true);
+      })
+    })
+
 }
+
 
 async function renderGenres(genres: Genres) {
   let allGenres = await getGenres(localStorage.getItem('accessToken')!);
@@ -187,7 +201,7 @@ async function renderGenres(genres: Genres) {
 
 function initActionsSection(): void {
   document.getElementById('changeButton')!.addEventListener('click', () => {
-    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); // solo a modo de ejemplo
+    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); 
   });
   document.getElementById('playButton')!.addEventListener('click', () => {
     togglePlay();

@@ -39,7 +39,7 @@ a:hover {
 
 .container {
   display: flex;
-  align-items: center; /* Alinea verticalmente al centro */
+  align-items: center; 
 }
 
 h1 {
@@ -106,35 +106,34 @@ main {
 .container {
   display: flex;
   justify-content: space-between;
-  margin-right: 100px;
+      margin-right: 100px;
 }
 
 .logo {
-  display: inline-block; /* Asegura que el logo no ocupe toda la línea */
+  display: inline-block; 
 }
 
 .menu {
-  display: flex; /* Usa flexbox para alinear los elementos del menú */
+  display: flex; 
  margin-right: 30px;
 }
 
 .search-profile {
-  margin-right: 20px; /* Espacio entre el buscador y el perfil */
+  margin-right: 20px; 
 }
 
 .profile {
   display: flex;
-  align-items: center; /* Alinea verticalmente al centro */
-  margin-right: 20px; /* Espacio entre el perfil y el buscador */
+  align-items: center; 
+  margin-right: 20px; 
 }
 
 #profileSection {
-  flex-grow: 1; /* Permite que profileSection ocupe todo el espacio restante */
-}
+  flex-grow: 1; 
 
 .search {
-  display: flex; /* Alinea el label y el input horizontalmente */
-  align-items: center; /* Alinea verticalmente al centro */
+  display: flex; 
+  align-items: center; 
   margin-right: 10px;
 }
 
@@ -154,23 +153,8 @@ main {
   margin: 1rem;
   justify-content: space-between;
 }
-.footer {
-  grid-area: footer;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-}
-/* .profile {
-  position: absolute;
-  left: -9999px;
-} */
+
+
 .audio-player {
   position: absolute;
   left: -9999px;
@@ -209,10 +193,6 @@ main {
 
 
 
-  .footer {
-    position: absolute;
-    left: -9999px;
-  }
   .audio-player {
     grid-area: player;
     position: fixed;
@@ -239,11 +219,12 @@ main {
     color: white;
   }
 
-  /* Personalización de los controles en Firefox */
+  
   audio::-moz-media-controls {
     background-color: #333;
     border-radius: 10px;
     color: white;
   }
  
+}
 }

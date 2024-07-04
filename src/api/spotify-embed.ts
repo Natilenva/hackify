@@ -19,7 +19,7 @@ export function initPlayer(el: HTMLElement): void {
 }
 
 export function playTrack(uri: string): void {
-  EmbedController.loadUri(uri);
+ EmbedController.loadUri(uri);
 }
 
 export function togglePlay(): void {
