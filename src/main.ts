@@ -8,6 +8,7 @@ const profileSection = document.getElementById("profileSection")!;
 const playlistsSection = document.getElementById("playlistsSection")!;
 const actionsSection = document.getElementById("actionsSection")!;
 
+
 async function init() {
   let profile: UserProfile | undefined;
   try {
@@ -48,7 +49,9 @@ function initMenuSection(): void  {
     renderProfileSection(profileSection.style.display !== "none");
   });
   document.getElementById("playlistsButton")!.addEventListener("click", () => {
+    
     renderPlaylistsSection(playlistsSection.style.display !== "none");
+    
   });
   document.getElementById("logoutButton")!.addEventListener("click", logout);
 }
@@ -77,9 +80,11 @@ function renderProfileData(profile: UserProfile) {
 function initPlaylistSection(profile?: UserProfile): void {
   if (profile) {
     getMyPlaylists(localStorage.getItem("accessToken")!)
+    
     .then((playlists: PlaylistRequest): void => {
       renderPlaylistsSection(!!profile);
       renderPlaylists(playlists);
+      
     });
   }
 }
@@ -90,26 +95,34 @@ function renderPlaylistsSection(render: boolean) {
 
 function renderPlaylists(playlists: PlaylistRequest) {
   const playlistElement = document.getElementById("playlists");
+  
   if (!playlistElement) {
     throw new Error("Element not found");
   }
-
-  playlistElement.innerHTML = playlists.items.map((playlist) => {
+  let htmlLista = '';
+  playlists.items.forEach((playlist) => {
     const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'public\hackifyLogo.png'; 
-    return `
-      <li class="playlist-item">
+    
+    htmlLista = htmlLista + `<li id="playlist-${playlist.id}" class="playlist-item">
        <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
-  }).join('');
+
+    
+      
+      
+    });
+    playlistElement.innerHTML = htmlLista;
 
   playlists.items.forEach((playlist) => {
     const button = document.getElementById(`playlistSingle-${playlist.id}`);
 
     if(button){
       button.addEventListener('click', () => {
+        console.log( '--------------------', playlist)
         renderPlaylistSingle(playlist)
+        
         console.log('playlist');
       })
     }
@@ -118,8 +131,11 @@ function renderPlaylists(playlists: PlaylistRequest) {
 function renderPlaylistSingle(lista : Playlist){
 
   const playlistsSingle = document.getElementById('playlistSingle');
+  const OcultarPlaylists = document.getElementById(`playlistsSection`);
+  OcultarPlaylists.innerHTML= '';
+  
   getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
-  console.log(lista)
+ // console.log(lista)
   if(!playlistsSingle){
     throw new Error ("Element not found")
   }
@@ -134,7 +150,7 @@ function renderPlaylistSingle(lista : Playlist){
   playlistsSingle.appendChild(header);
 
   const trackList = document.createElement('ul');
-
+  
   lista.tracks.forEach(track => {
     const trackItem = document.createElement('li');
 
