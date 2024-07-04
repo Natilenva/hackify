@@ -23,6 +23,7 @@ async function init() {
 
 function initPublicSection(profile?: UserProfile): void{
   document.getElementById("loginButton")!.addEventListener("click", login);
+  
   renderPublicSection(!!profile);
 }
 
@@ -97,13 +98,54 @@ function renderPlaylists(playlists: PlaylistRequest) {
     const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'; // Reemplaza 'default-image-url' con una URL de imagen por defecto si la playlist no tiene imagen.
     return `
       <li class="playlist-item">
-        <img src="${imageUrl}" alt="${playlist.name}" class="playlist-image">
+       <Button id="playlistSingle"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
   }).join('');
+
+  playlists.items.forEach((playlist , index) => {
+    const button = document.getElementById(`PlaylistSingle-${index}`);
+
+    if(button){
+      button.addEventListener('click', () => {
+        renderPlaylistSingle(playlist)
+        console.log('Playlist');
+      })
+    }
+})
 }
+function renderPlaylistSingle(lista : Playlist){
 
+  const playlistsSingle = document.getElementById('playlistSingle');
 
+  if(!playlistsSingle){
+    throw new Error ("Element not found")
+  }
+
+  playlistsSingle.innerHTML = '';
+  const header = document.createElement('div');
+  header.innerHTML = `
+    <h2>${lista.name}</h2>
+    <img src="${lista.images[0].url}" alt="${lista.name}" width="${lista.images[0].width}" height="${lista.images[0].height}">
+    <span class="playlist-name">${lista.name}</span>
+  `;
+  playlistsSingle.appendChild(header);
+
+  const trackList = document.createElement('ul');
+
+  lista.tracks.forEach(track => {
+    const trackItem = document.createElement('li');
+    trackItem.innerHTML = `
+      <strong>${track.name}</strong> - ${track.artists} (${track.album})
+    `;
+    trackList.appendChild(trackItem);
+  });
+
+  playlistsSingle.appendChild(trackList);
+
+  }
+  
 
 
 function initActionsSection(): void {

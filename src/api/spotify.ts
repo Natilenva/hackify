@@ -68,7 +68,7 @@ export async function getMyPlaylists(token: string): Promise<PlaylistRequest> {
   return await result.json();
 }
 
-export async function getPlaylistDetails(token: string, playlistId: string): Promise<Playlist> {
+export async function getSinglePlaylist(token: string, playlistId: string): Promise<Playlist> {
   const result = await fetch(`${api}/v1/playlists/${playlistId}`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` }
@@ -143,7 +143,7 @@ export async function getGenres(token: string ): Promise<Genres> {
   return await result.json();
 }
 //--------------------------------------------------------------------------------------------Songs--------------------------------
-export async function getSong(token: string, songId: string ): Promise<track> {
+export async function getSong(token: string, songId: string ): Promise<Track> {
 
   const result = await fetch(`${api}/v1/recommendations/tracks/${songId}`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -152,7 +152,7 @@ export async function getSong(token: string, songId: string ): Promise<track> {
   return await result.json();
 }
 
-export async function getMyFavouritesSongs(token: string): Promise<track> {
+export async function getMyFavouritesSongs(token: string): Promise<Track> {
 
   const result = await fetch(`${api}/v1/me/tracks?${param.toString()}`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -161,7 +161,7 @@ export async function getMyFavouritesSongs(token: string): Promise<track> {
   return await result.json();
 }
 
-export async function getNextSong(token: string ): Promise<track> {
+export async function getNextSong(token: string ): Promise<Track> {
 
   const result = await fetch(`${api}/v1/me/player/next/v1/me/player/next`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -170,7 +170,7 @@ export async function getNextSong(token: string ): Promise<track> {
   return await result.json();
 }
 
-export async function getPreviousSong(token: string ): Promise<track> {
+export async function getPreviousSong(token: string ): Promise<Track> {
 
   const result = await fetch(`${api}/v1/me/player/previous/v1/me/player/next`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }

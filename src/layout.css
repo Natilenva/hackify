@@ -11,6 +11,8 @@
   overflow: hidden;
 } */
 
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,19 +37,9 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: grid;
-  grid-template-areas:
-    'header'
-    'search'
-    'playlists'
-    'footer';
-
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4 1fr);
-  min-width: 320px;
-  min-height: 100vh;
+.container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
 }
 
 h1 {
@@ -56,13 +48,15 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
+ 
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
 .logo {
+ 
+  align-items: center;
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -102,37 +96,60 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* #actionsSection {
+#actionsSection {
   position: absolute;
   left: -9999px;
-} */
+}
 main {
   margin: 1rem;
 }
-
-.hackify {
-  grid-area: header;
-}
-.search {
+.container {
   display: flex;
-  flex-direction: column;
+  align-items: center; /* Alinea verticalmente al centro */
 }
+
+.logo {
+  display: inline-block; /* Asegura que el logo no ocupe toda la línea */
+}
+
+.menu {
+  display: flex; /* Usa flexbox para alinear los elementos del menú */
+ margin-right: 30px;
+}
+
+.search-profile {
+  margin-right: 20px; /* Espacio entre el buscador y el perfil */
+}
+
+.profile {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  margin-right: 20px; /* Espacio entre el perfil y el buscador */
+}
+
+#profileSection {
+  flex-grow: 1; /* Permite que profileSection ocupe todo el espacio restante */
+}
+
+.search {
+  display: flex; /* Alinea el label y el input horizontalmente */
+  align-items: center; /* Alinea verticalmente al centro */
+  margin-right: 10px;
+}
+
 .input-search {
   padding: 10px;
-  margin-top: 1rem;
   box-sizing: border-box;
 
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-.buscador {
-  grid-area: search;
-}
+
 .playlists {
   grid-area: playlists;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+
   margin: 1rem;
   justify-content: space-between;
 }
@@ -149,12 +166,21 @@ main {
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
+/* .profile {
+  position: absolute;
+  left: -9999px;
+} */
+.audio-player {
+  position: absolute;
+  left: -9999px;
+}
+
 /*---------------------------------------------------menu -------------------------------------------*/
 #menuSection {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  gap: 10px;
-  /* display: none; */
+  gap: 10px; */
+  display: none;
 }
 
 /*---------------------------------------------------------------------------------------------------*/
@@ -172,40 +198,59 @@ main {
   }
 }
 @media (min-width: 600px) {
-  body {
-    grid-template-areas:
-      'header search'
-      'barSide main'
-      'player player';
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 4fr 1fr;
-    min-width: 320px;
-    min-height: 100vh;
-  }
-  .hackify {
-    grid-area: header;
-  }
-  .search {
-    display: flex;
-    flex-direction: column;
-  }
-  .input-search {
-    padding: 10px;
-    margin-top: 1rem;
-    box-sizing: border-box;
 
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-  .buscador {
-    grid-area: search;
-  }
-  .playlists {
-    grid-area: playlists;
+
+
+  #menuSection {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    margin: 1rem;
-    justify-content: space-between;
+    gap: 10px;
+    align-content: flex-end;
+    justify-content: flex-start;
+}
+  
+
+ 
+
+
+
+  .footer {
+    position: absolute;
+    left: -9999px;
+  }
+  .audio-player {
+    grid-area: player;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+  }
+  audio::-webkit-media-controls-panel {
+    background-color: #333;
+    border-radius: 10px;
+  }
+
+  audio::-webkit-media-controls-play-button,
+  audio::-webkit-media-controls-volume-slider,
+  audio::-webkit-media-controls-mute-button,
+  audio::-webkit-media-controls-current-time-display,
+  audio::-webkit-media-controls-time-remaining-display {
+    color: white;
+  }
+
+  /* Personalización de los controles en Firefox */
+  audio::-moz-media-controls {
+    background-color: #333;
+    border-radius: 10px;
+    color: white;
+  }
+  #profileButton {
+    background-color: #191414;
   }
 }
