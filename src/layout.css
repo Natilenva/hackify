@@ -105,7 +105,8 @@ main {
 }
 .container {
   display: flex;
-  align-items: center; /* Alinea verticalmente al centro */
+  justify-content: space-between;
+  margin-right: 100px;
 }
 
 .logo {
@@ -244,7 +245,5 @@ main {
     border-radius: 10px;
     color: white;
   }
-  #profileButton {
-    background-color: #191414;
-  }
+ 
 }
