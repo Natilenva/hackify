@@ -159,7 +159,7 @@ async function renderPlaylistSingle(lista: Playlist) {
     <h2>${playlist.name}</h2>
     
     <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" class="playlistImage" height="${playlist.images[0].height}">
-    <span class="playlist-name">${playlist.name}</span>
+    
     
   `;
   playlistsSingle.appendChild(header);
