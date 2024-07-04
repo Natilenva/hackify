@@ -23,6 +23,7 @@ const playlistsSingle = document.getElementById('playlistSingle')!;
 const playerSpoty = document.getElementById('spotifyEmbedSection')!;
 const searchResults = document.getElementById('searchResults')!;
 const searchButton = document.getElementById('searchButton')!;
+const profileCard = document.getElementById('profileCard')!;
 
 
 async function init() {
@@ -50,6 +51,7 @@ function renderPlaylist(render: boolean): void {
 
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? 'none' : 'block';
+ 
 }
 
 function initPrivateSection(profile?: UserProfile): void {
@@ -62,6 +64,7 @@ function initPrivateSection(profile?: UserProfile): void {
 
 function renderPrivateSection(isLogged: boolean) {
   privateSection.style.display = isLogged ? 'flex' : 'none';
+
 }
 
 function renderPlayerSpoty(render : boolean){
@@ -114,15 +117,15 @@ function renderProfileSection(render: boolean) {
 }
 
 function renderProfileData(profile: UserProfile) {
-  document.getElementById('displayName')!.innerText = profile.display_name;
-  document.getElementById('id')!.innerText = profile.id;
-  document.getElementById('email')!.innerText = profile.email;
-  document.getElementById('uri')!.innerText = profile.uri;
-  document
-    .getElementById('uri')!
-    .setAttribute('href', profile.external_urls.spotify);
-  document.getElementById('url')!.innerText = profile.href;
-  document.getElementById('url')!.setAttribute('href', profile.href);
+  if (!profileCard) {
+    throw new Error('Element not found');
+  }
+  console.log(profile)
+  profileCard.innerHTML = `
+   <img id="profileImage" src="${profile.images[0].url}" alt="nombre" />
+   <p id="userName">${profile.display_name}</p>
+  `
+  return 
 }
 
 function initPlaylistSection(profile?: UserProfile): void {
@@ -136,7 +139,7 @@ function initPlaylistSection(profile?: UserProfile): void {
   }
 }
 
-function renderSearchResults(tracks : Track) {
+function renderSearchResults(tracks : Track | boolean) {
   if (searchResults) {
     searchResults.innerHTML = '';
     tracks.forEach(item => {

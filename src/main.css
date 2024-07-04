@@ -181,7 +181,10 @@ a:hover {
 	text-decoration: none;
 	font-size: 18px;
   }
-  
+  #profileImage{
+	border-radius: 3rem;
+	margin-right: 1rem;
+  }
   .menu-item:hover {
 	background-color: #555;
   }
