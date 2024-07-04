@@ -7,6 +7,7 @@ const privateSection = document.getElementById("privateSection")!;
 const profileSection = document.getElementById("profileSection")!;
 const playlistsSection = document.getElementById("playlistsSection")!;
 const actionsSection = document.getElementById("actionsSection")!;
+const playlistview = document.getElementById("playlists")!;
 
 
 async function init() {
@@ -28,8 +29,14 @@ function initPublicSection(profile?: UserProfile): void{
   renderPublicSection(!!profile);
 }
 
+function renderPlaylist(render: boolean): void {
+ 
+  playlistview.style.display = render ? "none" : "block";
+}
+
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? "none" : "block";
+  
 }
 
 function initPrivateSection(profile?: UserProfile): void  {
@@ -120,7 +127,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
 
     if(button){
       button.addEventListener('click', () => {
-        console.log( '--------------------', playlist)
+       
         renderPlaylistSingle(playlist)
 
         
@@ -132,7 +139,8 @@ function renderPlaylists(playlists: PlaylistRequest) {
 
 async function renderPlaylistSingle(lista : Playlist) {
 
-  renderPlaylistsSection(true)
+  renderPlaylist(true)
+  
 
   const playlistsSingle = document.getElementById('playlistSingle');
   
