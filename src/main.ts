@@ -157,8 +157,10 @@ async function renderPlaylistSingle(lista: Playlist) {
   const header = document.createElement('div');
   header.innerHTML = `
     <h2>${playlist.name}</h2>
+    
     <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" height="${playlist.images[0].height}">
     <span class="playlist-name">${playlist.name}</span>
+    
   `;
   playlistsSingle.appendChild(header);
 
@@ -169,7 +171,9 @@ async function renderPlaylistSingle(lista: Playlist) {
 
     trackItem.innerHTML = `
       <img src="${track.track.album.images[2].url}" alt="${track.name}"/>
+      <button>
       <p><strong>${track.track.name}</strong> - ${track.track.artists[0].name}  ${track.track.album.name}</p>
+      </button>
     `;
     trackList.appendChild(trackItem);
   });
