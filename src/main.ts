@@ -7,7 +7,7 @@ import {
   playTrack,
   togglePlay,
   getSinglePlaylist,
-  getGenres,
+ 
 } from './api';
 
 const publicSection = document.getElementById('publicSection')!;
@@ -184,7 +184,7 @@ async function renderPlaylistSingle(lista: Playlist) {
 
   const songButton =  document.querySelectorAll('.songButton');
     songButton.forEach(button => {
-      button.addEventListener('click', (event) => {
+      button.addEventListener('click', () => {
         const trackId = button.getAttribute('track-id');
         playTrack(`spotify:track:${trackId}`)
         togglePlay()
@@ -192,11 +192,6 @@ async function renderPlaylistSingle(lista: Playlist) {
       })
     })
 
-}
-
-
-async function renderGenres(genres: Genres) {
-  let allGenres = await getGenres(localStorage.getItem('accessToken')!);
 }
 
 function initActionsSection(): void {
