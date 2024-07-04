@@ -150,4 +150,6 @@ a:hover {
 	justify-content: space-around;
 	padding: 10px 0;
 	box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+	margin-right: 20px;
+	margin-bottom: 20px;
 }
