@@ -11,6 +11,8 @@
   overflow: hidden;
 } */
 
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,19 +37,9 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: grid;
-  grid-template-areas:
-    'header'
-    'search'
-    'playlists'
-    'footer';
-
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4 1fr);
-  min-width: 320px;
-  min-height: 100vh;
+.container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
 }
 
 h1 {
@@ -56,14 +48,14 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
+ 
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
 .logo {
-  grid-area: header;
+ 
   align-items: center;
   height: 6em;
   padding: 1.5em;
@@ -111,22 +103,48 @@ button:focus-visible {
 main {
   margin: 1rem;
 }
+.container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+}
+
+.logo {
+  display: inline-block; /* Asegura que el logo no ocupe toda la línea */
+}
+
+.menu {
+  display: flex; /* Usa flexbox para alinear los elementos del menú */
+ margin-right: 30px;
+}
+
+.search-profile {
+  margin-right: 20px; /* Espacio entre el buscador y el perfil */
+}
+
+.profile {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  margin-right: 20px; /* Espacio entre el perfil y el buscador */
+}
+
+#profileSection {
+  flex-grow: 1; /* Permite que profileSection ocupe todo el espacio restante */
+}
 
 .search {
-  display: flex;
-  flex-direction: column;
+  display: flex; /* Alinea el label y el input horizontalmente */
+  align-items: center; /* Alinea verticalmente al centro */
+  margin-right: 10px;
 }
+
 .input-search {
   padding: 10px;
-  margin-top: 1rem;
   box-sizing: border-box;
 
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-.buscador {
-  grid-area: search;
-}
+
 .playlists {
   grid-area: playlists;
   display: flex;
@@ -180,63 +198,22 @@ main {
   }
 }
 @media (min-width: 600px) {
-  body {
-    grid-template-areas:
-      'header search profile logOut'
-      'barSide main main main'
-      'player player player player';
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 3fr 1fr;
-    /* min-width: 320px;
-    min-height: 100vh; */
-  }
-  .logo {
-    grid-area: header;
-  }
-  .search {
-    display: flex;
-    flex-direction: column;
-  }
-  .input-search {
-    padding: 10px;
-    margin-top: 1rem;
-    box-sizing: border-box;
 
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-  .buscador {
-    grid-area: search;
-  }
-  .playlists {
-    grid-area: playlists;
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 1rem;
-    justify-content: space-between; */
-  }
+
+
   #menuSection {
-    grid-area: barSide;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
-  }
+    align-content: flex-end;
+    justify-content: flex-start;
+}
+  
 
-  .profile {
-    grid-area: profile;
-    position: fixed;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .search-profile {
-    display: flex;
-    flex-direction: rows;
-  }
-  #logoutButton {
-    grid-area: logOut;
-    background-color: #191414;
-  }
+ 
+
+
+
   .footer {
     position: absolute;
     left: -9999px;
