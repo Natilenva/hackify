@@ -1,6 +1,6 @@
 import './main.css';
 import { init as authenticatorInit, login, logout } from './auth';
-import { getMyPlaylists, initPlayer, playTrack, togglePlay,  } from './api';
+import { getMyPlaylists, initPlayer, playTrack, togglePlay,getSinglePlaylist  } from './api';
 
 const publicSection = document.getElementById("publicSection")!;
 const privateSection = document.getElementById("privateSection")!;
@@ -95,10 +95,13 @@ function renderPlaylists(playlists: PlaylistRequest) {
   }
 
   playlistElement.innerHTML = playlists.items.map((playlist) => {
-    const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'; // Reemplaza 'default-image-url' con una URL de imagen por defecto si la playlist no tiene imagen.
+    const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'public\hackifyLogo.png'; 
     return `
       <li class="playlist-item">
-       <Button id="playlistSingle"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+       <button id="playlistSingle" ${addEventListener('click', () => {
+        renderPlaylistSingle(playlist)
+        console.log(playlist);
+      })}><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
@@ -118,7 +121,8 @@ function renderPlaylists(playlists: PlaylistRequest) {
 function renderPlaylistSingle(lista : Playlist){
 
   const playlistsSingle = document.getElementById('playlistSingle');
-
+  getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
+  console.log(lista)
   if(!playlistsSingle){
     throw new Error ("Element not found")
   }
@@ -136,6 +140,7 @@ function renderPlaylistSingle(lista : Playlist){
 
   lista.tracks.forEach(track => {
     const trackItem = document.createElement('li');
+
     trackItem.innerHTML = `
       <strong>${track.name}</strong> - ${track.artists} (${track.album})
     `;

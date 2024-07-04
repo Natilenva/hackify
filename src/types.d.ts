@@ -36,6 +36,7 @@ type Playlist = {
   name: string;
   images: image[];
   tracks: Track[];
+  id: string
 }
 
 type PlaylistRequest = {
