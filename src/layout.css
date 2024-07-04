@@ -106,7 +106,7 @@ main {
 .container {
   display: flex;
   justify-content: space-between;
-  margin-right: 100px;
+      margin-right: 100px;
 }
 
 .logo {
@@ -154,23 +154,8 @@ main {
   margin: 1rem;
   justify-content: space-between;
 }
-.footer {
-  grid-area: footer;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-}
-/* .profile {
-  position: absolute;
-  left: -9999px;
-} */
+
+
 .audio-player {
   position: absolute;
   left: -9999px;
@@ -209,10 +194,6 @@ main {
 
 
 
-  .footer {
-    position: absolute;
-    left: -9999px;
-  }
   .audio-player {
     grid-area: player;
     position: fixed;
