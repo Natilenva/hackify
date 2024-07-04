@@ -117,7 +117,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
   playlists.items.forEach((playlist) => {
     const imageUrl =
       playlist.images.length > 0
-        ? playlist.images[0].url
+        ? playlist.images[1].url
         : 'publichackifyLogo.png';
 
     htmlLista =
