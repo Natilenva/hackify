@@ -35,6 +35,7 @@ type Image = {
 type Playlist = {
   name: string;
   images: image[];
+  tracks: Track[];
 }
 
 type PlaylistRequest = {
@@ -130,7 +131,7 @@ type AlbumsRequest = {
   total: number;
   items: Album[];
 }
-type track = {
+type Track = {
     album:[]
     artists: Artist[];
     available_markets: string[];
