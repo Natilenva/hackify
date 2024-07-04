@@ -98,17 +98,14 @@ function renderPlaylists(playlists: PlaylistRequest) {
     const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'public\hackifyLogo.png'; 
     return `
       <li class="playlist-item">
-       <button id="playlistSingle" ${addEventListener('click', () => {
-        renderPlaylistSingle(playlist)
-        console.log(playlist);
-      })}><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
   }).join('');
 
   playlists.items.forEach((playlist) => {
-    const button = document.getElementById(`playlistSingle`);
+    const button = document.getElementById(`playlistSingle-${playlist.id}`);
 
     if(button){
       button.addEventListener('click', () => {
