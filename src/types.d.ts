@@ -1,14 +1,13 @@
-
 type UserProfile = {
   country: string;
   display_name: string;
   email: string;
   explicit_content: {
-    filter_enabled: boolean,
-    filter_locked: boolean
-  },
-  external_urls: { spotify: string; };
-  followers: { href: string; total: number; };
+    filter_enabled: boolean;
+    filter_locked: boolean;
+  };
+  external_urls: { spotify: string };
+  followers: { href: string; total: number };
   href: string;
   id: string;
   images: {
@@ -19,43 +18,42 @@ type UserProfile = {
   product: string;
   type: string;
   uri: string;
-}
+};
 
 type TokenResponse = {
   access_token: string;
   refresh_token: string;
-}
+};
 
 type Image = {
   url: string;
   height: number;
   width: number;
-}
+};
 
 type Playlist = {
   name: string;
   images: image[];
-  tracks: Track[];
-  id: string
-}
+  tracks: { items: Track[] };
+  id: string;
+};
 
 type PlaylistRequest = {
   items: Playlist[];
-}
-
+};
 
 type Icon = {
   url: string;
   height: number | null;
   width: number | null;
-}
+};
 
 type Category = {
   href: string;
   icons: Icon[];
   id: string;
   name: string;
-}
+};
 
 type Categories = {
   href: string;
@@ -65,22 +63,20 @@ type Categories = {
   offset: number;
   previous: string | null;
   total: number;
-}
+};
 
 type CategoriesRequest = {
   categories: Categories[];
-}
+};
 
 type ExternalUrls = {
   spotify: string;
-}
+};
 
 type Followers = {
   href: string | null;
   total: number;
-}
-
-
+};
 
 type Artist = {
   external_urls: ExternalUrls;
@@ -93,20 +89,19 @@ type Artist = {
   popularity: number;
   type: string;
   uri: string;
-}
+};
 
 type ArtistsRequest = {
   artists: Artist[];
-}
- 
-type ExternalUrls ={
+};
+
+type ExternalUrls = {
   url: string;
   height: number;
   width: number;
-}
+};
 
-
-type Album ={
+type Album = {
   album_type: string;
   total_tracks: number;
   available_markets: string[];
@@ -120,8 +115,8 @@ type Album ={
   type: string;
   uri: string;
   artists: Artist[];
-  album_group?: string; 
-}
+  album_group?: string;
+};
 
 type AlbumsRequest = {
   href: string;
@@ -131,28 +126,28 @@ type AlbumsRequest = {
   previous: string | null;
   total: number;
   items: Album[];
-}
+};
 type Track = {
-    album:[]
-    artists: Artist[];
-    available_markets: string[];
-    disc_number: number;
-    duration_ms: number;
-    explicit: boolean;
-    external_ids: {
-      isrc: string;
-    };
-    external_urls: ExternalUrls;
-    href: string;
-    id: string;
-    name: string;
-    popularity: number;
-    preview_url: string | null;
-    track_number: number;
-    type: string;
-    uri: string;
-    is_local: boolean;
-    items: [];
+  album: [];
+  artists: Artist[];
+  available_markets: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: {
+    isrc: string;
   };
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  name: string;
+  popularity: number;
+  preview_url: string | null;
+  track_number: number;
+  type: string;
+  uri: string;
+  is_local: boolean;
+  track: any;
+};
 
-  type Genres = string[];
+type Genres = string[];
