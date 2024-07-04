@@ -1,12 +1,14 @@
 import './main.css';
 import { init as authenticatorInit, login, logout } from './auth';
-import { getMyPlaylists, initPlayer, playTrack, togglePlay,  } from './api';
+import { getMyPlaylists, initPlayer, playTrack, togglePlay,getSinglePlaylist  } from './api';
 
 const publicSection = document.getElementById("publicSection")!;
 const privateSection = document.getElementById("privateSection")!;
 const profileSection = document.getElementById("profileSection")!;
 const playlistsSection = document.getElementById("playlistsSection")!;
 const actionsSection = document.getElementById("actionsSection")!;
+const playlistview = document.getElementById("playlists")!;
+
 
 async function init() {
   let profile: UserProfile | undefined;
@@ -27,8 +29,14 @@ function initPublicSection(profile?: UserProfile): void{
   renderPublicSection(!!profile);
 }
 
+function renderPlaylist(render: boolean): void {
+ 
+  playlistview.style.display = render ? "none" : "block";
+}
+
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? "none" : "block";
+  
 }
 
 function initPrivateSection(profile?: UserProfile): void  {
@@ -48,7 +56,9 @@ function initMenuSection(): void  {
     renderProfileSection(profileSection.style.display !== "none");
   });
   document.getElementById("playlistsButton")!.addEventListener("click", () => {
+    
     renderPlaylistsSection(playlistsSection.style.display !== "none");
+    
   });
   document.getElementById("logoutButton")!.addEventListener("click", logout);
 }
@@ -77,9 +87,11 @@ function renderProfileData(profile: UserProfile) {
 function initPlaylistSection(profile?: UserProfile): void {
   if (profile) {
     getMyPlaylists(localStorage.getItem("accessToken")!)
+    
     .then((playlists: PlaylistRequest): void => {
       renderPlaylistsSection(!!profile);
       renderPlaylists(playlists);
+      
     });
   }
 }
@@ -90,35 +102,52 @@ function renderPlaylistsSection(render: boolean) {
 
 function renderPlaylists(playlists: PlaylistRequest) {
   const playlistElement = document.getElementById("playlists");
+  
   if (!playlistElement) {
     throw new Error("Element not found");
   }
-
-  playlistElement.innerHTML = playlists.items.map((playlist) => {
-    const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'default-image-url'; // Reemplaza 'default-image-url' con una URL de imagen por defecto si la playlist no tiene imagen.
-    return `
-      <li class="playlist-item">
-       <Button id="playlistSingle"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
+  let htmlLista = '';
+  playlists.items.forEach((playlist) => {
+    const imageUrl = playlist.images.length > 0 ? playlist.images[0].url : 'public\hackifyLogo.png'; 
+    
+    htmlLista = htmlLista + `<li id="playlist-${playlist.id}" class="playlist-item">
+       <button id="playlistSingle-${playlist.id}"><img src="${imageUrl}" alt="${playlist.name}" class="playlist-image"></button>
 
         <span class="playlist-name">${playlist.name}</span>
       </li>`;
-  }).join('');
 
-  playlists.items.forEach((playlist , index) => {
-    const button = document.getElementById(`PlaylistSingle-${index}`);
+    
+      
+      
+    });
+    playlistElement.innerHTML = htmlLista;
+
+  playlists.items.forEach((playlist) => {
+    const button = document.getElementById(`playlistSingle-${playlist.id}`);
 
     if(button){
       button.addEventListener('click', () => {
+       
         renderPlaylistSingle(playlist)
-        console.log('Playlist');
+
+        
+        console.log('playlist');
       })
     }
 })
 }
-function renderPlaylistSingle(lista : Playlist){
+
+async function renderPlaylistSingle(lista : Playlist) {
+
+  renderPlaylist(true)
+  
 
   const playlistsSingle = document.getElementById('playlistSingle');
-
+  
+  
+  let playlist = await getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
+ 
+  
   if(!playlistsSingle){
     throw new Error ("Element not found")
   }
@@ -126,18 +155,20 @@ function renderPlaylistSingle(lista : Playlist){
   playlistsSingle.innerHTML = '';
   const header = document.createElement('div');
   header.innerHTML = `
-    <h2>${lista.name}</h2>
-    <img src="${lista.images[0].url}" alt="${lista.name}" width="${lista.images[0].width}" height="${lista.images[0].height}">
-    <span class="playlist-name">${lista.name}</span>
+    <h2>${playlist.name}</h2>
+    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" height="${playlist.images[0].height}">
+    <span class="playlist-name">${playlist.name}</span>
   `;
   playlistsSingle.appendChild(header);
 
   const trackList = document.createElement('ul');
-
-  lista.tracks.forEach(track => {
+  
+  playlist.tracks.items.forEach(track => {
     const trackItem = document.createElement('li');
+
     trackItem.innerHTML = `
-      <strong>${track.name}</strong> - ${track.artists} (${track.album})
+      <img src="${track.track.album.images[2].url}" alt="${track.name}"/>
+      <p><strong>${track.track.name}</strong> - ${track.track.artists[0].name}  ${track.track.album.name}</p>
     `;
     trackList.appendChild(trackItem);
   });
