@@ -88,7 +88,10 @@ function initMenuSection(): void {
       try {
         const tracks = await search(query); 
         renderSearchResults(tracks);
-        renderPlaylist(false)
+        renderPlaylist(false);
+        renderActionsSection(false);
+        renderPlayerSpoty(true);
+        renderPlaylistSingle(false)
       } catch (error) {
         console.error('Error durante la búsqueda:', error);
       }
@@ -155,8 +158,9 @@ function renderSearchResults(tracks : Track) {
         console.log(trackId)
         playTrack(`spotify:track:${trackId}`);
         togglePlay();
-        renderActionsSection(true);
+        renderActionsSection(false);
         renderPlayerSpoty(false);
+        
       });
     });
   }
@@ -247,7 +251,7 @@ async function renderPlaylistSingle(lista: Playlist) {
         const trackId = button.getAttribute('track-id');
         playTrack(`spotify:track:${trackId}`)
         togglePlay()
-        renderActionsSection(true);
+        renderActionsSection(false);
         renderPlayerSpoty(false);
       })
     })
