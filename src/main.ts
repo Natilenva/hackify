@@ -128,34 +128,35 @@ function renderPlaylists(playlists: PlaylistRequest) {
     }
 })
 }
-function renderPlaylistSingle(lista : Playlist){
+async function renderPlaylistSingle(lista : Playlist) {
 
   const playlistsSingle = document.getElementById('playlistSingle');
-  const OcultarPlaylists = document.getElementById(`playlistsSection`);
-  OcultarPlaylists.innerHTML= '';
+ // const OcultarPlaylists = document.getElementById(`playlistsSection`);
+  //OcultarPlaylists.innerHTML= '';
   
-  getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
+  let playlist = await getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
  // console.log(lista)
   if(!playlistsSingle){
     throw new Error ("Element not found")
   }
-
+console.log( '--------------------------------------',playlist)
   playlistsSingle.innerHTML = '';
   const header = document.createElement('div');
   header.innerHTML = `
-    <h2>${lista.name}</h2>
-    <img src="${lista.images[0].url}" alt="${lista.name}" width="${lista.images[0].width}" height="${lista.images[0].height}">
-    <span class="playlist-name">${lista.name}</span>
+    <h2>${playlist.name}</h2>
+    <img src="${playlist.images[0].url}" alt="${playlist.name}" width="${playlist.images[0].width}" height="${playlist.images[0].height}">
+    <span class="playlist-name">${playlist.name}</span>
   `;
   playlistsSingle.appendChild(header);
 
   const trackList = document.createElement('ul');
   
-  lista.tracks.forEach(track => {
+  playlist.tracks.items.forEach(track => {
     const trackItem = document.createElement('li');
 
     trackItem.innerHTML = `
-      <strong>${track.name}</strong> - ${track.artists} (${track.album})
+      <img src="${track.track.album.images[2].url}" alt="${track.name}"/>
+      <p><strong>${track.track.name}</strong> - ${track.track.artists[0].name}  ${track.track.album.name}</p>
     `;
     trackList.appendChild(trackItem);
   });
