@@ -122,24 +122,28 @@ function renderPlaylists(playlists: PlaylistRequest) {
       button.addEventListener('click', () => {
         console.log( '--------------------', playlist)
         renderPlaylistSingle(playlist)
+
         
         console.log('playlist');
       })
     }
 })
 }
+
 async function renderPlaylistSingle(lista : Playlist) {
 
+  renderPlaylistsSection(true)
+
   const playlistsSingle = document.getElementById('playlistSingle');
- // const OcultarPlaylists = document.getElementById(`playlistsSection`);
-  //OcultarPlaylists.innerHTML= '';
+  
   
   let playlist = await getSinglePlaylist(localStorage.getItem("accessToken")!, lista.id)
- // console.log(lista)
+ 
+  
   if(!playlistsSingle){
     throw new Error ("Element not found")
   }
-console.log( '--------------------------------------',playlist)
+
   playlistsSingle.innerHTML = '';
   const header = document.createElement('div');
   header.innerHTML = `
