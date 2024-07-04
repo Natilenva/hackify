@@ -104,13 +104,13 @@ function renderPlaylists(playlists: PlaylistRequest) {
       </li>`;
   }).join('');
 
-  playlists.items.forEach((playlist , index) => {
-    const button = document.getElementById(`PlaylistSingle-${index}`);
+  playlists.items.forEach((playlist) => {
+    const button = document.getElementById(`playlistSingle`);
 
     if(button){
       button.addEventListener('click', () => {
         renderPlaylistSingle(playlist)
-        console.log('Playlist');
+        console.log('playlist');
       })
     }
 })
