@@ -30,7 +30,7 @@
       <img src="assets/hackify.webp" alt="hackify" />
     
     <section id="profileCard" class="profile">
-      <img src="" alt="nombre" />
+      <img id="hackifyImage" src="" alt="nombre" />
       <button id="profileButton">View Profile</button>
     </section>
     <div class="search-profile">
@@ -38,7 +38,7 @@
         <section class="search">
           <input class="input-search" id="input-search" type="text" placeholder="Search for artists, songs" />
           <button class="search-button" id="searchButton">
-            <img width="20px" height="20px" src="assets/noun-search-6990904-FFFFFF (1).svg" alt="Search Icon" class="search-icon" />
+            <img id="hackifyImage" width="20px" height="20px" src="assets/noun-search-6990904-FFFFFF (1).svg" alt="Search Icon" class="search-icon" />
           </button>
         </section>
       </div>
@@ -65,7 +65,7 @@
         <span>My favorites</span>
         <img style="margin-left: 7px;" width="20px" src="./assets/noun-heart-6935789-FFFFFF.svg" alt="heart icon">
       </button>
-      <button class="menu-item">
+      <button class="menu-item"  id="homeButton">
         <span id="homeButton">Home</span>
         <img style="margin-left: 7px;" width="20px" src="./assets/noun-home-6993141-FFFFFF.svg" alt="heart icon">
       </button>
@@ -79,6 +79,7 @@
       <ul id="playlistSingle"></ul>
       <ul id="searchResults"></ul>
       <ul id="genresContainer"></ul>
+      <ul id="allCategories"></ul>
     </section>
   </section>
 
@@ -97,22 +98,21 @@
   </section>
 
 
-
   <footer class="footer">
     <nav class="menu2">
-      <button style="flex-direction: column;" class="menu-item">
+      <button class="menu-item">
         <img width="30px" src="assets/noun-menu-6995496-FFFFFF.svg" alt="Menu Icon">
         <span>Menu</span>
       </button>
-      <button style="flex-direction: column;" class="menu-item">
+      <button class="menu-item">
         <img width="30px" src="assets/noun-home-6993141-FFFFFF.svg" alt="Home Icon">
         <span>Home</span>
       </button>
-      <button style="flex-direction: column;" class="menu-item">
+      <button class="menu-item">
         <img width="30px" src="assets/noun-search-6990904-FFFFFF (1).svg" alt="Search Icon">
         <span>Search</span>
       </button>
-      <button style="flex-direction: column;" class="menu-item" id="playlistsButton">
+      <button class="menu-item" id="playlistsButton">
         <img width="30px" src="assets/noun-record-114768-FFFFFF.svg" alt="Playlists Icon">
         <span>PlayLists</span>
       </button>
@@ -120,7 +120,11 @@
   </footer>
 
 
+<script>
+const hackifyImage = document.getElementById('hackifyImage');
 
+hackifyImage.style.setProperty('display', 'block', 'important');
+</script>
 </body>
 
 </html>

@@ -15,11 +15,11 @@ body {
 
 
 .buscador {
-	width: 100%; 
-	max-width: 600px; 
-	display: flex; 
-	align-items: center; 
-  }
+	width: 100%;
+	max-width: 600px;
+	display: flex;
+	align-items: center;
+}
 
 button {
 	background-color: black;
@@ -36,12 +36,14 @@ button:hover {
 	background-color: var(--spotify-gray);
 }
 
-#publicSection, #privateSection {
+#publicSection,
+#privateSection {
 	display: none;
 	padding: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
 	color: var(--spotify-white);
 }
 
@@ -68,9 +70,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	text-decoration: underline;
-}
+
 
 #playlists {
 	display: flex;
@@ -100,32 +100,32 @@ a:hover {
 
 #privateSection {
 	display: flex;
-	height: 100vh; 
+	height: 100vh;
 }
 
 #menuSection {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 10px; 
+	gap: 10px;
 	padding: 20px;
-	width: 200px; 
+	width: 200px;
 	background-color: black !important;
-	color: #ecf0f1; 
+	color: #ecf0f1;
 }
 
 #menuSection button {
 	width: 100%;
-	padding: 15px; 
-	font-size: 16px; 
-	cursor: pointer; 
-	 
+	padding: 15px;
+	font-size: 16px;
+	cursor: pointer;
+
 	color: #ecf0f1;
-	text-align: left; 
+	text-align: left;
 }
 
 #menuSection button:hover {
-	background-color: #3b3b3b; 
+	background-color: #3b3b3b;
 }
 
 #playlistsSection {
@@ -133,7 +133,7 @@ a:hover {
 	flex: 1;
 	padding: 20px;
 	background-color: black;
-	overflow-y: auto; 
+	overflow-y: auto;
 }
 
 #playlistsSection p {
@@ -141,7 +141,8 @@ a:hover {
 	font-weight: bold;
 }
 
-#playlists ul, #playlistSingle ul {
+#playlists ul,
+#playlistSingle ul {
 	list-style-type: none;
 	padding: 0;
 }
@@ -161,19 +162,28 @@ a:hover {
 	margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+	#spotifyEmbedSection {
+	  width: 100%; 
+	  left: 0; 
+	  margin-right: 0;
+	  margin-bottom: 0;
+	}
+}
+
 .playlistImage {
 	width: 300px;
 	height: 300px;
 }
 
-  
-  .menu-toggle {
-	display: none; 
-  }
-  
 
-  
-  .menu-item {
+.menu-toggle {
+	display: none;
+}
+
+
+
+.menu-item {
 	display: flex;
 	align-items: center;
 	padding: 15px;
@@ -181,32 +191,42 @@ a:hover {
 	text-decoration: none;
 	font-size: 18px;
 	transition: background-color 0.3s, background-image 0.3s, border-right 0.3s;
-  }
-  #profileImage{
+}
+
+#profileImage {
 	border-radius: 3rem;
 	margin-right: 1rem;
-  }
-  .menu-item:hover {
+}
+
+.menu-item:hover {
 	background-color: #6f6f6d;
-    background-image: linear-gradient(90deg, #6f6f6d 0%, #0a0a0a 100%);
-	border-right: 0.5rem solid greenyellow;
+	background-image: linear-gradient(90deg, #6f6f6d 0%, #0a0a0a 100%);
+	
+}
 
+.songButton:hover {
+	background-color: #6f6f6d;
+	background-image: linear-gradient(90deg, #6f6f6d 0%, #0a0a0a 100%);
+	
+}
 
-  }
-  
-  @media (max-width: 768px) {
-	#menuSection {
-	  display: none;
-	}
-  }
+#menuSection {
+    display: block; 
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+    #menuSection {
+        display: none !important; 
+    }
+}
+
+@media (max-width: 768px) {
 	.container {
-	  display: none; 
+		display: none !important;
 	}
-  }
-  
-  .footer {
+}
+
+.footer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -215,122 +235,120 @@ a:hover {
 	color: white;
 	text-align: center;
 	padding: 10px 0;
-  }
-  
-  .menu2 {
+	display: none;
+	justify-content: space-around;
+	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.footer {
+		display: block !important;
+	}
+}
+
+.menu2 {
 	flex-direction: row !important;
-	display: flex !important; 
-	justify-content: center !important; 
-	
-  }
-  
-  .menu-item {
+	display: flex !important;
+	justify-content: center !important;
+
+}
+
+.menu-item {
 	background: none;
 	border: none;
 	color: white;
 	cursor: pointer;
 	display: flex;
-	
-	align-items: center;
-  }
-  
-  .menu-item:hover {
-	background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  @media (min-width: 768px) {
-	.footer {
-	  display: none; 
-	}
-  }  @media (max-width: 768px) {
-	.logo2 {
-	  display: block; 
-	}
-  }
-  .logo2 {
-	display: none; 
-  }
-  @media (max-width: 768px) {
-	.logo2 {
-	  display: inline-block; 
-	}
-  }
 
-  .songButton
-  {
+	align-items: center;
+}
+
+.menu-item:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo2 {
+	display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .logo2 {
+        display: block !important; 
+    }
+}
+l
+
+.songButton {
 	margin-left: 20px;
-  }
+}
 
 .scroll-container::-webkit-scrollbar {
 	width: 12px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb {
-	background-color: #1DB954; 
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+	background-color: #1DB954;
 	border-radius: 10px;
 	border: 3px solid #1DB954;
-  }
-  
-  .scroll-container::-webkit-scrollbar-track {
+}
+
+.scroll-container::-webkit-scrollbar-track {
 	background: #333;
 	border-radius: 10px;
-  }
-  
-  .scroll-container {
+}
+
+.scroll-container {
 	direction: rtl;
 	overflow-y: scroll;
-	height: 100vh; 
-  }
-  
-  .scroll-container > * {
-	direction: ltr; 
-  }
-  
-  .search-profile {
+	height: 100vh;
+}
+
+.scroll-container>* {
+	direction: ltr;
+}
+
+.search-profile {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 20px;
-  }
-  
-  .buscador {
+}
+
+.buscador {
 	display: flex;
 	align-items: center;
-  }
-  
-  .search {
+}
+
+.search {
 	display: flex;
 	align-items: center;
-  }
-  
-  .input-search {
+}
+
+.input-search {
 	padding: 10px;
 	border-radius: 20px 0 0 20px;
 	font-size: 16px;
-  }
-  
-  .search-button {
+}
+
+.search-button {
 	padding: 10px;
 	border-left: none;
-	background-color: #1DB954; 
+	
 	border-radius: 0 20px 20px 0;
 	cursor: pointer;
-  }
-  
-  .search-button img {
+}
+
+.search-button img {
 	width: 20px;
 	height: 20px;
-  }
-  
-  .search-button:hover {
-	background-color: #1aa34a;
-  }
-  
-  .input-search:focus {
+}
+
+
+.input-search:focus {
 	outline: none;
-  }
-  
-  .visually-hidden {
+}
+
+.visually-hidden {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -340,5 +358,4 @@ a:hover {
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
-  }
-  
+}

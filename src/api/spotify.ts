@@ -136,7 +136,7 @@ export async function getSingleArtist(token: string, artistId: string ): Promise
 //----------------------------------------------------------------------------------------Genres--------------------------------
 export async function getGenres(token: string ): Promise<Genres> {
 
-  const result = await fetch(`${api}/v1/recommendations/available-genre-seeds`, {
+  const result = await fetch(`${api}/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx%2C57dN52uHvrHOxijzpIgu3E%2C1vCWHaC5f2uS3yhpwWbIA6`, {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
   });
 
