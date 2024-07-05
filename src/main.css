@@ -210,15 +210,19 @@ a {
 	
 }
 
+#menuSection {
+    display: block; 
+}
+
 @media (max-width: 768px) {
-	#menuSection {
-		display: none;
-	}
+    #menuSection {
+        display: none !important; 
+    }
 }
 
 @media (max-width: 768px) {
 	.container {
-		display: none;
+		display: none !important;
 	}
 }
 
@@ -267,11 +271,12 @@ a {
 	display: none;
 }
 
-@media (max-width: 768px) {
-	.logo2 {
-		display: inline-block;
-	}
+@media screen and (max-width: 768px) {
+    .logo2 {
+        display: block !important; 
+    }
 }
+l
 
 .songButton {
 	margin-left: 20px;
