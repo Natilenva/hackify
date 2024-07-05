@@ -162,7 +162,7 @@ main {
   left: -9999px;
 }
 
-/*---------------------------------------------------menu -------------------------------------------*/
+
 #menuSection {
   /* display: flex;
   flex-direction: column;
@@ -170,7 +170,6 @@ main {
   display: none;
 }
 
-/*---------------------------------------------------------------------------------------------------*/
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -246,7 +245,6 @@ main {
   padding: 5px 15px;
 }
 
-/* Estilo del input de búsqueda */
 .input-search {
   flex: 1;
   background-color: transparent;
@@ -261,7 +259,6 @@ main {
   color: #b3b3b3;
 }
 
-/* Botón de búsqueda */
 .search-button {
   background-color: #1db954;
   border: none;
