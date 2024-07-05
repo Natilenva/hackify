@@ -9,7 +9,7 @@ import {
   getSinglePlaylist,
   search,
   getGenres,
-  getAllCategories,
+  
 } from './api';
 
 const publicSection = document.getElementById('publicSection')!;
@@ -76,6 +76,7 @@ function initMenuSection(): void {
   });
   document.getElementById('playlistsButton')!.addEventListener('click', () => {
     playlistsSingle.style.display = 'none';
+    renderCategoriesSongs(true);
     renderPlaylistsSection(true);
     renderPlaylist(true);
     renderPlayerSpoty(true);
@@ -319,8 +320,8 @@ async function renderCategories() {
       console.log('desde el forEach', category);
 
       categoryItem.innerHTML = `
-        <button class="categorySingle">
-          <img src="${category.images[1].url}" alt="${category.name}" class="category-image">
+        <button class="categorySingle" >
+          <img src="${category.images[1].url}" alt="${category.name}" class="playlist-image">
         </button>
         <span class="category-name">${category.name}</span>`;
         allCategories.appendChild(categoryItem);
