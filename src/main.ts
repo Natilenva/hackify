@@ -96,6 +96,7 @@ function initMenuSection(): void {
     if (query) {
       try {
         const tracks = await search(query);
+        renderCategoriesSongs(true)
         renderSearchResults(tracks);
         renderPlaylist(false);
         renderActionsSection(false);
