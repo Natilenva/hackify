@@ -23,8 +23,8 @@ const playerSpoty = document.getElementById('spotifyEmbedSection')!;
 const searchResults = document.getElementById('searchResults')!;
 const searchButton = document.getElementById('searchButton')!;
 const profileCard = document.getElementById('profileCard')!;
-const homeButton = document.getElementById('homeButton')!;
 const allCategories = document.getElementById('allCategories')!;
+
 async function init() {
   let profile: UserProfile | undefined;
   try {
@@ -51,9 +51,9 @@ function renderPlaylist(render: boolean): void {
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? 'none' : 'block';
 }
-function renderCategoriesSongs(render: boolean): void {
-  allCategories.style.display = render ? 'flex' : 'none';
-}
+ function renderCategoriesSongs(render: boolean): void {
+  allCategories.style.display = render ? 'none' : 'flex';
+ }
 function initPrivateSection(profile?: UserProfile): void {
   renderPrivateSection(!!profile);
   initMenuSection();
@@ -82,17 +82,16 @@ function initMenuSection(): void {
     renderSearchResults(false);
   });
   document.getElementById('logoutButton')!.addEventListener('click', logout);
-  document.getElementById('homeButton')!.addEventListener('click', () => {
-    allCategories.style.display = 'none';
-    renderPlaylistsSection(true);
-    renderCategoriesSongs(true);
+
+  document.getElementById('homeButton')?.addEventListener('click', () => {
+    renderCategoriesSongs(false);
+    renderCategories();
     renderPlaylist(false);
     renderPlayerSpoty(true);
-    renderCategories();
-  });
+    renderSearchResults(false);
+   });
   searchButton.addEventListener('click', async () => {
     const query = document.getElementById('input-search').value;
-    console.log(query);
     if (query) {
       try {
         const tracks = await search(query);
@@ -125,7 +124,6 @@ function renderProfileData(profile: UserProfile) {
   if (!profileCard) {
     throw new Error('Element not found');
   }
-  console.log(profile);
   profileCard.innerHTML = `
    <img id="profileImage" src="${profile.images[0].url}" alt="nombre" />
    <p id="userName">${profile.display_name}</p>
@@ -143,17 +141,17 @@ function initPlaylistSection(profile?: UserProfile): void {
     );
   }
 }
-function initPlaylistSectionCategories(profile?: UserProfile): void {
-  if (profile) {
-    getAllCategories(localStorage.getItem('accessToken')!).then(
-      (categories: CategoriesRequest): void => {
-        renderPlaylistsSection(!!profile);
-        renderCategories(categories);
-      }
-    );
-  }
-}
-initPlaylistSectionCategories();
+// function initPlaylistSectionCategories(profile?: UserProfile): void {
+//   if (profile) {
+//     getAllCategories(localStorage.getItem('accessToken')!).then(
+//       (categories: CategoriesRequest): void => {
+//         renderPlaylistsSection(!!profile);
+//         renderCategories(categories);
+//       }
+//     );
+//   }
+// }
+// initPlaylistSectionCategories();
 function renderSearchResults(tracks: Track | boolean) {
   if (searchResults) {
     searchResults.innerHTML = '';
@@ -173,7 +171,6 @@ function renderSearchResults(tracks: Track | boolean) {
     songButton.forEach((buttons) => {
       buttons.addEventListener('click', () => {
         const trackId = buttons.getAttribute('track-id');
-        console.log(trackId);
         playTrack(`spotify:track:${trackId}`);
         togglePlay();
         renderActionsSection(false);
@@ -305,40 +302,28 @@ function renderActionsSection(render: boolean) {
 
 document.addEventListener('DOMContentLoaded', init);
 
-async function renderCategories(categories: CategoriesRequest) {
-  let categoriesSongs = await getAllCategories(
+async function renderCategories() {
+  let categoriesSongs = await getGenres(
     localStorage.getItem('accessToken')!
   );
-  console.log(categoriesSongs);
+   
+   console.log( categoriesSongs.artists)
 
   if (!allCategories) {
-    throw new Error('Element not found');
-  }
-  //let htmlLista = '';
-  categoriesSongs.categories.items.forEach((category) => {
-    const categoryItem = document.createElement('li');
-    console.log(category);
-    // const imageUrl =
-    //   playlist.images.length > 0
-    //     ? playlist.images[0].url
-    //     : 'publichackifyLogo.png';
+     throw new Error('Element not found');
+   }
+   allCategories.innerHTML = '';
+   
+   categoriesSongs.artists.forEach((category) => {
+      const categoryItem = document.createElement('li');
+      console.log('desde el forEach', category);
 
-    categoryItem.innerHTML = `
-    <button id="categorySingle-${category.categories.items}"><img src="${category.categories.items.icons.url}" alt="${category.categories.items.name}" class="category-image"></button>
-
-        <span class="category-name">${category.categories.items.name}</span>`;
-    allCategories.appendChild(categoryItem);
-  });
-
-  // categories.categories.forEach((category) => {
-  //   const button = document.getElementById(
-  //     `categorySingle-${category.categories.items.id}`
-  //   );
-
-  //   if (button) {
-  //     button.addEventListener('click', () => {
-  //       // renderCategorySingle(category);
-  //     });
-  //   }
-  // });
-}
+      categoryItem.innerHTML = `
+        <button class="categorySingle">
+          <img src="${category.images[1].url}" alt="${category.name}" class="category-image">
+        </button>
+        <span class="category-name">${category.name}</span>`;
+        allCategories.appendChild(categoryItem);
+      });
+     
+ }

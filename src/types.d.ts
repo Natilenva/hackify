@@ -50,7 +50,7 @@ type Icon = {
 
 type Category = {
   href: string;
-  icons: Icon[];
+  icon: Icon[];
   id: string;
   name: string;
 };
