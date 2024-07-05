@@ -260,3 +260,86 @@ a:hover {
   {
 	margin-left: 20px;
   }
+
+.scroll-container::-webkit-scrollbar {
+	width: 12px;
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+	background-color: #1DB954; 
+	border-radius: 10px;
+	border: 3px solid #1DB954;
+  }
+  
+  .scroll-container::-webkit-scrollbar-track {
+	background: #333;
+	border-radius: 10px;
+  }
+  
+  .scroll-container {
+	direction: rtl;
+	overflow-y: scroll;
+	height: 100vh; 
+  }
+  
+  .scroll-container > * {
+	direction: ltr; 
+  }
+  
+  .search-profile {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+  }
+  
+  .buscador {
+	display: flex;
+	align-items: center;
+  }
+  
+  .search {
+	display: flex;
+	align-items: center;
+  }
+  
+  .input-search {
+	padding: 10px;
+	border-radius: 20px 0 0 20px;
+	font-size: 16px;
+  }
+  
+  .search-button {
+	padding: 10px;
+	border-left: none;
+	background-color: #1DB954; 
+	border-radius: 0 20px 20px 0;
+	cursor: pointer;
+  }
+  
+  .search-button img {
+	width: 20px;
+	height: 20px;
+  }
+  
+  .search-button:hover {
+	background-color: #1aa34a;
+  }
+  
+  .input-search:focus {
+	outline: none;
+	border-color: #1DB954;
+  }
+  
+  .visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+  }
+  
