@@ -255,3 +255,8 @@ a:hover {
 	  display: inline-block; 
 	}
   }
+
+  .songButton
+  {
+	margin-left: 20px;
+  }
