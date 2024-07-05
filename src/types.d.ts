@@ -148,6 +148,7 @@ type Track = {
   uri: string;
   is_local: boolean;
   track: any;
+  item: any;
 };
 
 type Genres = string[];

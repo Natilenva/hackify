@@ -180,27 +180,15 @@ export async function getPreviousSong(token: string ): Promise<Track> {
   return await result.json();
 }
 
-
-export async function createPlaylist(token: string, userId: string, name: string, description: string, isPublic: boolean): Promise<Playlist> {
-  const result =
-   await fetch(`${api}/v1/users/${userId}/playlists`, {
-    method: "POST",
-    headers: { 
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      description,
-      public: isPublic
-    })
-
+export async function search(query : string) {
+  const accessToken = localStorage.getItem('accessToken');
+  const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=50`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
   });
-
-  if (!result.ok) {
-    const error = await result.json();
-    throw new Error(error.error.message);
-  }
-
-  return await result.json();
+  const data = await response.json();
+  return data.tracks.items;
 }
+
+

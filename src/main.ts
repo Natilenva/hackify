@@ -7,7 +7,9 @@ import {
   playTrack,
   togglePlay,
   getSinglePlaylist,
- 
+  search,
+  getGenres,
+  getAllCategories,
 } from './api';
 
 const publicSection = document.getElementById('publicSection')!;
@@ -17,6 +19,11 @@ const playlistsSection = document.getElementById('playlistsSection')!;
 const actionsSection = document.getElementById('actionsSection')!;
 const playlistview = document.getElementById('playlists')!;
 const playlistsSingle = document.getElementById('playlistSingle')!;
+const playerSpoty = document.getElementById('spotifyEmbedSection')!;
+const searchResults = document.getElementById('searchResults')!;
+const searchButton = document.getElementById('searchButton')!;
+const profileCard = document.getElementById('profileCard')!;
+const homeButton = document.getElementById('homeButton')!;
 
 async function init() {
   let profile: UserProfile | undefined;
@@ -44,7 +51,9 @@ function renderPlaylist(render: boolean): void {
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? 'none' : 'block';
 }
-
+// function renderCategoriesSongs(render: boolean): void {
+//   categories.style.display = render ? 'none' : 'flex';
+// }
 function initPrivateSection(profile?: UserProfile): void {
   renderPrivateSection(!!profile);
   initMenuSection();
@@ -57,6 +66,10 @@ function renderPrivateSection(isLogged: boolean) {
   privateSection.style.display = isLogged ? 'flex' : 'none';
 }
 
+function renderPlayerSpoty(render: boolean) {
+  playerSpoty.style.display = render ? 'none' : 'flex';
+}
+
 function initMenuSection(): void {
   document.getElementById('profileButton')!.addEventListener('click', () => {
     renderProfileSection(profileSection.style.display !== 'none');
@@ -65,8 +78,34 @@ function initMenuSection(): void {
     playlistsSingle.style.display = 'none';
     renderPlaylistsSection(true);
     renderPlaylist(true);
+    renderPlayerSpoty(true);
+    renderSearchResults(false);
   });
   document.getElementById('logoutButton')!.addEventListener('click', logout);
+  // document.getElementById('homeButton')!.addEventListener('click', () => {
+  //   playlistsSingle.style.display = 'none';
+  //   renderPlaylistsSection(true);
+  //   renderCategoriesSongs(true);
+  //   renderCategories(categories);
+  // });
+  searchButton.addEventListener('click', async () => {
+    const query = document.getElementById('input-search').value;
+    console.log(query);
+    if (query) {
+      try {
+        const tracks = await search(query);
+        renderSearchResults(tracks);
+        renderPlaylist(false);
+        renderActionsSection(false);
+        renderPlayerSpoty(true);
+        renderPlaylistSingle(false);
+      } catch (error) {
+        console.error('Error durante la búsqueda:', error);
+      }
+    } else if (query == null) {
+      console.error('Error durante la búsqueda:');
+    }
+  });
 }
 
 function initProfileSection(profile?: UserProfile | undefined) {
@@ -81,15 +120,15 @@ function renderProfileSection(render: boolean) {
 }
 
 function renderProfileData(profile: UserProfile) {
-  document.getElementById('displayName')!.innerText = profile.display_name;
-  document.getElementById('id')!.innerText = profile.id;
-  document.getElementById('email')!.innerText = profile.email;
-  document.getElementById('uri')!.innerText = profile.uri;
-  document
-    .getElementById('uri')!
-    .setAttribute('href', profile.external_urls.spotify);
-  document.getElementById('url')!.innerText = profile.href;
-  document.getElementById('url')!.setAttribute('href', profile.href);
+  if (!profileCard) {
+    throw new Error('Element not found');
+  }
+  console.log(profile);
+  profileCard.innerHTML = `
+   <img id="profileImage" src="${profile.images[0].url}" alt="nombre" />
+   <p id="userName">${profile.display_name}</p>
+  `;
+  return;
 }
 
 function initPlaylistSection(profile?: UserProfile): void {
@@ -100,6 +139,45 @@ function initPlaylistSection(profile?: UserProfile): void {
         renderPlaylists(playlists);
       }
     );
+  }
+}
+// function initPlaylistSectionCategories(profile?: UserProfile): void {
+//   if (profile) {
+//     getAllCategories(localStorage.getItem('accessToken')!).then(
+//       (categories: CategoriesRequest): void => {
+//         renderPlaylistsSection(!!profile);
+//         renderCategories(categories);
+//       }
+//     );
+//   }
+// }
+// initPlaylistSectionCategories();
+function renderSearchResults(tracks: Track | boolean) {
+  if (searchResults) {
+    searchResults.innerHTML = '';
+    tracks.forEach((item) => {
+      const trackItem = document.createElement('li');
+
+      trackItem.innerHTML = `
+        <img src="${item.album.images[2].url}" alt="${item.name}" />
+        <button class="songButton" data-track-uri="${item.uri}" track-id= "${item.id}">
+          <p><strong>${item.name}</strong> - ${item.artists[0].name}</p>
+        </button>
+      `;
+      searchResults.appendChild(trackItem);
+    });
+
+    const songButton = document.querySelectorAll('.songButton');
+    songButton.forEach((buttons) => {
+      buttons.addEventListener('click', () => {
+        const trackId = buttons.getAttribute('track-id');
+        console.log(trackId);
+        playTrack(`spotify:track:${trackId}`);
+        togglePlay();
+        renderActionsSection(false);
+        renderPlayerSpoty(false);
+      });
+    });
   }
 }
 
@@ -118,7 +196,7 @@ function renderPlaylists(playlists: PlaylistRequest) {
     const imageUrl =
       playlist.images.length > 0
         ? playlist.images[0].url
-        : 'public\hackifyLogo.png';
+        : 'publichackifyLogo.png';
 
     htmlLista =
       htmlLista +
@@ -176,27 +254,42 @@ async function renderPlaylistSingle(lista: Playlist) {
       </button>
     `;
     trackList.appendChild(trackItem);
-
-    
   });
 
   playlistsSingle.appendChild(trackList);
 
-  const songButton =  document.querySelectorAll('.songButton');
-    songButton.forEach(button => {
-      button.addEventListener('click', () => {
-        const trackId = button.getAttribute('track-id');
-        playTrack(`spotify:track:${trackId}`)
-        togglePlay()
-        renderActionsSection(true);
-      })
-    })
+  const songButton = document.querySelectorAll('.songButton');
+  songButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      const trackId = button.getAttribute('track-id');
+      playTrack(`spotify:track:${trackId}`);
+      togglePlay();
+      renderActionsSection(false);
+      renderPlayerSpoty(false);
+    });
+  });
+}
+async function renderGenres() {
+  const genres = await getGenres(localStorage.getItem('accessToken')!);
 
+  const genresContainer = document.getElementById('genresContainer')!;
+  genresContainer.innerHTML = '';
+
+  genres.forEach((genre) => {
+    const genreItem = document.createElement('div');
+    genreItem.classList.add('genre-item');
+    genreItem.textContent = genre;
+    genresContainer.appendChild(genreItem);
+  });
 }
 
+document.addEventListener('DOMContentLoaded', async () => {
+  await renderGenres();
+  initActionsSection();
+});
 function initActionsSection(): void {
   document.getElementById('changeButton')!.addEventListener('click', () => {
-    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); 
+    playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl');
   });
   document.getElementById('playButton')!.addEventListener('click', () => {
     togglePlay();
@@ -209,3 +302,40 @@ function renderActionsSection(render: boolean) {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// async function renderCategories(categories: CategoriesRequest) {
+//   let categoriesSongs = getAllCategories(localStorage.getItem('accessToken')!);
+//   console.log(categoriesSongs);
+//   const categoryElement = document.getElementById('allCategories');
+
+//   if (!categoryElement) {
+//     throw new Error('Element not found');
+//   }
+//   let htmlLista = '';
+//   categories.categories.forEach((category) => {
+//     console.log(category);
+//     // const imageUrl =
+//     //   playlist.images.length > 0
+//     //     ? playlist.images[0].url
+//     //     : 'publichackifyLogo.png';
+
+//     htmlLista =
+//       htmlLista +
+//       `<li id="category-${category.items.id}" class="category-item">
+//        <button id="categorySingle-${category.items.id}"><img src="${imageUrl}" alt="${category.items.name}" class="category-image"></button>
+
+//         <span class="category-name">${category.items.name}</span>
+//       </li>`;
+//   });
+//   categoryElement.innerHTML = htmlLista;
+
+//   categories.categories.forEach((category) => {
+//     const button = document.getElementById(`categorySingle-${category.id}`);
+
+//     if (button) {
+//       button.addEventListener('click', () => {
+//         // renderCategorySingle(category);
+//       });
+//     }
+//   });
+// }
