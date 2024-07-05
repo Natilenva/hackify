@@ -8,6 +8,7 @@ import {
   togglePlay,
   getSinglePlaylist,
   search,
+  getGenres
  
 } from './api';
 
@@ -24,6 +25,7 @@ const playerSpoty = document.getElementById('spotifyEmbedSection')!;
 const searchResults = document.getElementById('searchResults')!;
 const searchButton = document.getElementById('searchButton')!;
 const profileCard = document.getElementById('profileCard')!;
+const homeButton = document.getElementById('homeButton')!;
 
 
 async function init() {
@@ -260,7 +262,25 @@ async function renderPlaylistSingle(lista: Playlist) {
     })
 
 }
+async function renderGenres() {
+  const genres = await getGenres(localStorage.getItem('accessToken')!);
+  
+  const genresContainer = document.getElementById('genresContainer')!;
+  genresContainer.innerHTML = '';
 
+  genres.forEach(genre => {
+    const genreItem = document.createElement('div');
+    genreItem.classList.add('genre-item');
+    genreItem.textContent = genre;
+    genresContainer.appendChild(genreItem);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await renderGenres();
+  initActionsSection();
+  
+});
 function initActionsSection(): void {
   document.getElementById('changeButton')!.addEventListener('click', () => {
     playTrack('spotify:track:11dFghVXANMlKmJXsNCbNl'); 
