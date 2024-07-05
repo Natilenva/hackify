@@ -24,7 +24,7 @@ const searchResults = document.getElementById('searchResults')!;
 const searchButton = document.getElementById('searchButton')!;
 const profileCard = document.getElementById('profileCard')!;
 const homeButton = document.getElementById('homeButton')!;
-
+const allCategories = document.getElementById('allCategories')!;
 async function init() {
   let profile: UserProfile | undefined;
   try {
@@ -51,9 +51,9 @@ function renderPlaylist(render: boolean): void {
 function renderPublicSection(render: boolean): void {
   publicSection.style.display = render ? 'none' : 'block';
 }
-// function renderCategoriesSongs(render: boolean): void {
-//   categories.style.display = render ? 'none' : 'flex';
-// }
+function renderCategoriesSongs(render: boolean): void {
+  allCategories.style.display = render ? 'flex' : 'none';
+}
 function initPrivateSection(profile?: UserProfile): void {
   renderPrivateSection(!!profile);
   initMenuSection();
@@ -82,12 +82,14 @@ function initMenuSection(): void {
     renderSearchResults(false);
   });
   document.getElementById('logoutButton')!.addEventListener('click', logout);
-  // document.getElementById('homeButton')!.addEventListener('click', () => {
-  //   playlistsSingle.style.display = 'none';
-  //   renderPlaylistsSection(true);
-  //   renderCategoriesSongs(true);
-  //   renderCategories(categories);
-  // });
+  document.getElementById('homeButton')!.addEventListener('click', () => {
+    allCategories.style.display = 'none';
+    renderPlaylistsSection(true);
+    renderCategoriesSongs(true);
+    renderPlaylist(false);
+    renderPlayerSpoty(true);
+    renderCategories();
+  });
   searchButton.addEventListener('click', async () => {
     const query = document.getElementById('input-search').value;
     console.log(query);
@@ -141,17 +143,17 @@ function initPlaylistSection(profile?: UserProfile): void {
     );
   }
 }
-// function initPlaylistSectionCategories(profile?: UserProfile): void {
-//   if (profile) {
-//     getAllCategories(localStorage.getItem('accessToken')!).then(
-//       (categories: CategoriesRequest): void => {
-//         renderPlaylistsSection(!!profile);
-//         renderCategories(categories);
-//       }
-//     );
-//   }
-// }
-// initPlaylistSectionCategories();
+function initPlaylistSectionCategories(profile?: UserProfile): void {
+  if (profile) {
+    getAllCategories(localStorage.getItem('accessToken')!).then(
+      (categories: CategoriesRequest): void => {
+        renderPlaylistsSection(!!profile);
+        renderCategories(categories);
+      }
+    );
+  }
+}
+initPlaylistSectionCategories();
 function renderSearchResults(tracks: Track | boolean) {
   if (searchResults) {
     searchResults.innerHTML = '';
@@ -303,39 +305,40 @@ function renderActionsSection(render: boolean) {
 
 document.addEventListener('DOMContentLoaded', init);
 
-// async function renderCategories(categories: CategoriesRequest) {
-//   let categoriesSongs = getAllCategories(localStorage.getItem('accessToken')!);
-//   console.log(categoriesSongs);
-//   const categoryElement = document.getElementById('allCategories');
+async function renderCategories(categories: CategoriesRequest) {
+  let categoriesSongs = await getAllCategories(
+    localStorage.getItem('accessToken')!
+  );
+  console.log(categoriesSongs);
 
-//   if (!categoryElement) {
-//     throw new Error('Element not found');
-//   }
-//   let htmlLista = '';
-//   categories.categories.forEach((category) => {
-//     console.log(category);
-//     // const imageUrl =
-//     //   playlist.images.length > 0
-//     //     ? playlist.images[0].url
-//     //     : 'publichackifyLogo.png';
+  if (!allCategories) {
+    throw new Error('Element not found');
+  }
+  //let htmlLista = '';
+  categoriesSongs.categories.items.forEach((category) => {
+    const categoryItem = document.createElement('li');
+    console.log(category);
+    // const imageUrl =
+    //   playlist.images.length > 0
+    //     ? playlist.images[0].url
+    //     : 'publichackifyLogo.png';
 
-//     htmlLista =
-//       htmlLista +
-//       `<li id="category-${category.items.id}" class="category-item">
-//        <button id="categorySingle-${category.items.id}"><img src="${imageUrl}" alt="${category.items.name}" class="category-image"></button>
+    categoryItem.innerHTML = `
+    <button id="categorySingle-${category.categories.items}"><img src="${category.categories.items.icons.url}" alt="${category.categories.items.name}" class="category-image"></button>
 
-//         <span class="category-name">${category.items.name}</span>
-//       </li>`;
-//   });
-//   categoryElement.innerHTML = htmlLista;
+        <span class="category-name">${category.categories.items.name}</span>`;
+    allCategories.appendChild(categoryItem);
+  });
 
-//   categories.categories.forEach((category) => {
-//     const button = document.getElementById(`categorySingle-${category.id}`);
+  // categories.categories.forEach((category) => {
+  //   const button = document.getElementById(
+  //     `categorySingle-${category.categories.items.id}`
+  //   );
 
-//     if (button) {
-//       button.addEventListener('click', () => {
-//         // renderCategorySingle(category);
-//       });
-//     }
-//   });
-// }
+  //   if (button) {
+  //     button.addEventListener('click', () => {
+  //       // renderCategorySingle(category);
+  //     });
+  //   }
+  // });
+}
