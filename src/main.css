@@ -242,6 +242,10 @@ a:hover {
 	.footer {
 	  display: none; 
 	}
+  }  @media (max-width: 768px) {
+	.logo2 {
+	  display: block; 
+	}
   }
   .logo2 {
 	display: none; 
