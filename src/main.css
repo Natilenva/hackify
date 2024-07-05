@@ -70,9 +70,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	text-decoration: underline;
-}
+
 
 #playlists {
 	display: flex;
@@ -203,9 +201,13 @@ a:hover {
 .menu-item:hover {
 	background-color: #6f6f6d;
 	background-image: linear-gradient(90deg, #6f6f6d 0%, #0a0a0a 100%);
-	border-right: 0.5rem solid greenyellow;
+	
+}
 
-
+.songButton:hover {
+	background-color: #6f6f6d;
+	background-image: linear-gradient(90deg, #6f6f6d 0%, #0a0a0a 100%);
+	
 }
 
 @media (max-width: 768px) {
@@ -326,7 +328,7 @@ a:hover {
 .search-button {
 	padding: 10px;
 	border-left: none;
-	background-color: #1DB954;
+	
 	border-radius: 0 20px 20px 0;
 	cursor: pointer;
 }
@@ -336,9 +338,6 @@ a:hover {
 	height: 20px;
 }
 
-.search-button:hover {
-	background-color: #1aa34a;
-}
 
 .input-search:focus {
 	outline: none;
