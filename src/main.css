@@ -328,7 +328,6 @@ a:hover {
   
   .input-search:focus {
 	outline: none;
-	border-color: #1DB954;
   }
   
   .visually-hidden {
